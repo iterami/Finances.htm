@@ -1,0 +1,32 @@
+<!doctype html>
+<meta charset=utf-8>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Finances.htm</title>
+<link href=../common/css/core.css rel=stylesheet>
+
+<table>
+  <tr class=header>
+    <td>Interval
+    <td>Average Gain
+  <tr>
+    <td>Monthly
+    <td id=total-monthly>
+  <tr>
+    <td>Yearly
+    <td id=total-yearly>
+</table>
+<table>
+  <thead>
+    <tr class=header>
+      <td><input id=add-row type=button value="+">
+      <td>ID
+      <td>Amount
+      <td>Interest
+      <td>Gain/Year
+  </thead>
+  <tbody id=sources-body></tbody>
+</table>
+
+<script src=../common/js/core.js></script>
+<script src=js/main.js></script>
+<script src=js/data.js></script>
