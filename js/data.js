@@ -22,16 +22,18 @@ function calculate(){
         total += gain;
     }
 
-    document.getElementById('total-yearly').textContent = core_number_format({
-      'decimals-max': 5,
-      'decimals-min': 2,
-      'number': total,
-    });
-    document.getElementById('total-monthly').textContent = core_number_format({
-      'decimals-max': 5,
-      'decimals-min': 2,
-      'number': total / 12,
-    });
+    const intervals_per_year = {
+      'monthly': 12,
+      'quarterly': 4,
+      'yearly': 1,
+    };
+    for(const interval in intervals_per_year){
+        document.getElementById('total-' + interval).textContent = core_number_format({
+          'decimals-max': 5,
+          'decimals-min': 2,
+          'number': total / intervals_per_year[interval],
+        });
+    }
 }
 
 function new_row(id, amount, interest, interval){
