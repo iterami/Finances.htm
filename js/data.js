@@ -11,11 +11,7 @@ function calculate(){
         const amount = document.getElementById(source + '-amount').value;
         const interest = document.getElementById(source + '-interest').value;
 
-        let gain = amount * (interest / 100);
-
-        if(sources[source]['interval'] == 0){
-            gain *= 12;
-        }
+        let gain = amount * (interest / 100) * (12 / sources[source]['interval']);
 
         document.getElementById(source + '-gain').textContent = core_number_format({
           'decimals-max': 5,
@@ -48,10 +44,14 @@ function new_row(id, amount, interest, interval){
       + '<td><input id="' + row_id + '" value="' + row_id + '">'
       + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
       + '<td><input id="' + row_id + '-interest" value="' + interest + '">%'
-        + '<select id="' + row_id + '-interval"><option value=0>Monthly</option><option value=1>Yearly</option></select>'
+        + '<select id="' + row_id + '-interval">'
+          + '<option value=1>Monthly</option>'
+          + '<option value=3>Quarterly</option>'
+          + '<option value=12>Yearly</option>'
+        + '</select>'
       + '<td id="' + row_id + '-gain">';
 
-    document.getElementById(row_id + '-interval').selectedIndex = interval;
+    document.getElementById(row_id + '-interval').value = interval;
 
     sources[row_id] = {
       'amount': amount,

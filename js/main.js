@@ -19,7 +19,7 @@ function repo_init(){
         'sources': {},
       },
       'storage': {
-        'sources': '{"test":{"amount":500,"interest":1,"interval":1}}',
+        'sources': '{"test":{"amount":500,"interest":1,"interval":12}}',
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
