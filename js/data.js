@@ -17,20 +17,23 @@ function calculate(){
             gain *= 12;
         }
 
-        document.getElementById(source + '-gain').textContent = core_round({
-          'decimals': 2,
+        document.getElementById(source + '-gain').textContent = core_number_format({
+          'decimals-max': 5,
+          'decimals-min': 2,
           'number': gain,
         });
 
         total += gain;
     }
 
-    document.getElementById('total-yearly').textContent = core_round({
-      'decimals': 2,
+    document.getElementById('total-yearly').textContent = core_number_format({
+      'decimals-max': 5,
+      'decimals-min': 2,
       'number': total,
     });
-    document.getElementById('total-monthly').textContent = core_round({
-      'decimals': 2,
+    document.getElementById('total-monthly').textContent = core_number_format({
+      'decimals-max': 5,
+      'decimals-min': 2,
       'number': total / 12,
     });
 }
