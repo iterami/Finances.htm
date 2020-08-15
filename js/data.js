@@ -5,21 +5,29 @@ function calculate(){
     core_storage_update();
 
     let total = 0;
+    let total_increase = 0;
 
     const sources = JSON.parse(core_storage_data['sources']);
     for(const source in sources){
-        const amount = document.getElementById(source + '-amount').value;
-        const interest = document.getElementById(source + '-interest').value;
+        const amount = Number(document.getElementById(source + '-amount').value);
+        const interest = Number(document.getElementById(source + '-interest').value);
 
-        let gain = amount * (interest / 100) * (12 / sources[source]['interval']);
+        const gain = amount * (interest / 100) * (12 / sources[source]['interval']);
+        const gain_increase = ((amount + gain) * (interest / 100) * (12 / sources[source]['interval'])) - gain;
 
         document.getElementById(source + '-gain').textContent = core_number_format({
-          'decimals-max': 5,
+          'decimals-max': 7,
           'decimals-min': 2,
           'number': gain,
         });
+        document.getElementById(source + '-gain-increase').textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': gain_increase,
+        });
 
         total += gain;
+        total_increase += gain_increase;
     }
 
     const intervals_per_year = {
@@ -29,9 +37,14 @@ function calculate(){
     };
     for(const interval in intervals_per_year){
         document.getElementById('total-' + interval).textContent = core_number_format({
-          'decimals-max': 5,
+          'decimals-max': 7,
           'decimals-min': 2,
           'number': total / intervals_per_year[interval],
+        });
+        document.getElementById('total-' + interval + '-increase').textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': total_increase / intervals_per_year[interval],
         });
     }
 }
@@ -46,12 +59,13 @@ function new_row(id, amount, interest, interval){
       + '<td><input id="' + row_id + '" value="' + row_id + '">'
       + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
       + '<td><input id="' + row_id + '-interest" value="' + interest + '">%'
-        + '<select id="' + row_id + '-interval">'
-          + '<option value=1>Monthly</option>'
-          + '<option value=3>Quarterly</option>'
-          + '<option value=12>Yearly</option>'
-        + '</select>'
-      + '<td id="' + row_id + '-gain">';
+      + '<td><select id="' + row_id + '-interval">'
+        + '<option value=1>Monthly</option>'
+        + '<option value=3>Quarterly</option>'
+        + '<option value=12>Yearly</option>'
+      + '</select>'
+      + '<td id="' + row_id + '-gain">'
+      + '<td id="' + row_id + '-gain-increase">';
 
     document.getElementById(row_id + '-interval').value = interval;
 
@@ -61,6 +75,7 @@ function new_row(id, amount, interest, interval){
       'interval': interval,
     };
 
+    row_count++;
     update_events();
 }
 
@@ -95,6 +110,8 @@ function update_events(){
         document.getElementById(id + '-amount').oninput = update_values;
         document.getElementById(id + '-interest').oninput = update_values;
         document.getElementById(id + '-interval').onchange = update_values;
+
+        document.getElementById(id + '-interval').value = sources[id]['interval'];
     }
 
     calculate();
@@ -107,6 +124,7 @@ function update_ids(old_id, new_id){
     document.getElementById(old_id + '-interest').id = new_id + '-interest';
     document.getElementById(old_id + '-interval').id = new_id + '-interval';
     document.getElementById(old_id + '-gain').id = new_id + '-gain';
+    document.getElementById(old_id + '-gain-increase').id = new_id + '-gain-increase';
 
     sources[new_id] = sources[old_id];
     delete sources[old_id];
