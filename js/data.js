@@ -124,14 +124,19 @@ function update_events(){
 }
 
 function update_ids(old_id, new_id){
-    document.getElementById(old_id + '-remove').id = new_id + '-remove';
-    document.getElementById(old_id + '-apply').id = new_id + '-apply';
-    document.getElementById(old_id).id = new_id;
-    document.getElementById(old_id + '-amount').id = new_id + '-amount';
-    document.getElementById(old_id + '-interest').id = new_id + '-interest';
-    document.getElementById(old_id + '-interval').id = new_id + '-interval';
-    document.getElementById(old_id + '-gain').id = new_id + '-gain';
-    document.getElementById(old_id + '-gain-increase').id = new_id + '-gain-increase';
+    const elements = [
+      '',
+      '-amount',
+      '-apply',
+      '-gain',
+      '-gain-increase',
+      '-interest',
+      '-interval',
+      '-remove',
+    ];
+    for(const i in elements){
+        document.getElementById(old_id + elements[i]).id = new_id + elements[i];
+    }
 
     sources[new_id] = sources[old_id];
     delete sources[old_id];
