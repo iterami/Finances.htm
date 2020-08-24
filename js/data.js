@@ -9,6 +9,10 @@ function calculate(){
 
     const sources = JSON.parse(core_storage_data['sources']);
     for(const source in sources){
+        if(!document.getElementById(source + '-apply').checked){
+            continue;
+        }
+
         const amount = Number(document.getElementById(source + '-amount').value);
         const interest = Number(document.getElementById(source + '-interest').value);
 
@@ -56,6 +60,7 @@ function new_row(id, amount, interest, interval){
 
     document.getElementById('sources-body').innerHTML += '<tr>'
       + '<td><input id="' + row_id + '-remove" type=button value=->'
+        + '<input id="' + row_id + '-apply" type=checkbox checked>'
       + '<td><input id="' + row_id + '" value="' + row_id + '">'
       + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
       + '<td><input id="' + row_id + '-interest" value="' + interest + '">%'
@@ -98,6 +103,7 @@ function remove_row(row_id){
 
 function update_events(){
     for(const id in sources){
+        document.getElementById(id + '-apply').onclick = update_values;
         document.getElementById(id + '-remove').onclick = function(){
             remove_row(this.id);
         };
@@ -119,6 +125,7 @@ function update_events(){
 
 function update_ids(old_id, new_id){
     document.getElementById(old_id + '-remove').id = new_id + '-remove';
+    document.getElementById(old_id + '-apply').id = new_id + '-apply';
     document.getElementById(old_id).id = new_id;
     document.getElementById(old_id + '-amount').id = new_id + '-amount';
     document.getElementById(old_id + '-interest').id = new_id + '-interest';
