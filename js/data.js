@@ -51,6 +51,17 @@ function calculate(){
           'number': total_increase / intervals_per_year[interval],
         });
     }
+
+    calculate_goal();
+}
+
+function calculate_goal(){
+    const goal = Number(document.getElementById('goal').value);
+    const total_yearly_gain = Number(document.getElementById('total-yearly').textContent);
+    const total_yearly_increase = Number(document.getElementById('total-yearly-increase').textContent);
+
+    document.getElementById('goal-years').textContent =
+      Math.log(goal / total_yearly_gain) / Math.log(1 + total_yearly_increase / total_yearly_gain);
 }
 
 function new_row(id, amount, interest, interval){

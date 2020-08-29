@@ -13,6 +13,9 @@ function repo_init(){
             );
           },
         },
+        'goal': {
+          'oninput': calculate_goal,
+        },
       },
       'globals': {
         'row_count': 0,
@@ -24,6 +27,9 @@ function repo_init(){
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
     });
+
+    const goal_length = String(Math.floor(Number(document.getElementById('total-yearly').textContent))).length;
+    document.getElementById('goal').value = goal_length * 10;
 
     const sources = JSON.parse(core_storage_data['sources']);
     for(const source in sources){
