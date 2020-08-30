@@ -28,9 +28,6 @@ function repo_init(){
       'title': 'Finances.htm',
     });
 
-    const goal_length = String(Math.floor(Number(document.getElementById('total-yearly').textContent))).length;
-    document.getElementById('goal').value = goal_length * 10;
-
     const sources = JSON.parse(core_storage_data['sources']);
     for(const source in sources){
         new_row(

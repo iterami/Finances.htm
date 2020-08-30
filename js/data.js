@@ -56,7 +56,17 @@ function calculate(){
 }
 
 function calculate_goal(){
-    const goal = Number(document.getElementById('goal').value);
+    const goal_text = document.getElementById('goal').value;
+    let goal = Number(goal_text);
+
+    if(goal_text.length === 0){
+        goal = Math.pow(
+          10,
+          String(Math.floor(Number(document.getElementById('total-yearly').textContent))).length
+        );
+        document.getElementById('goal').value = goal;
+    }
+
     const total_yearly_gain = Number(document.getElementById('total-yearly').textContent);
     const total_yearly_increase = Number(document.getElementById('total-yearly-increase').textContent);
 
