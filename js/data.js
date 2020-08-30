@@ -70,8 +70,11 @@ function calculate_goal(){
     const total_yearly_gain = Number(document.getElementById('total-yearly').textContent);
     const total_yearly_increase = Number(document.getElementById('total-yearly-increase').textContent);
 
-    document.getElementById('goal-years').textContent =
-      Math.log(goal / total_yearly_gain) / Math.log(1 + total_yearly_increase / total_yearly_gain);
+    document.getElementById('goal-years').textContent = core_number_format({
+      'decimals-max': 7,
+      'decimals-min': 2,
+      'number': Math.log(goal / total_yearly_gain) / Math.log(1 + total_yearly_increase / total_yearly_gain),
+    });
 }
 
 function new_row(id, amount, interest, interval){
