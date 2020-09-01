@@ -9,10 +9,6 @@ function calculate(){
 
     const sources = JSON.parse(core_storage_data['sources']);
     for(const source in sources){
-        if(!document.getElementById(source + '-apply').checked){
-            continue;
-        }
-
         const amount = Number(document.getElementById(source + '-amount').value);
         const interest = Number(document.getElementById(source + '-interest').value);
 
@@ -30,8 +26,11 @@ function calculate(){
           'number': gain_increase,
         });
 
-        total += gain;
-        total_increase += gain_increase;
+
+        if(document.getElementById(source + '-apply').checked){
+            total += gain;
+            total_increase += gain_increase;
+        }
     }
 
     const intervals_per_year = {
