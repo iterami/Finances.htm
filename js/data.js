@@ -170,9 +170,9 @@ function update_ids(old_id, new_id){
 
 function update_values(){
     for(const id in sources){
-        sources[id]['amount'] = document.getElementById(id + '-amount').value;
-        sources[id]['interest'] = document.getElementById(id + '-interest').value;
-        sources[id]['interval'] = document.getElementById(id + '-interval').value;
+        sources[id]['amount'] = Number(document.getElementById(id + '-amount').value);
+        sources[id]['interest'] = Number(document.getElementById(id + '-interest').value);
+        sources[id]['interval'] = Number(document.getElementById(id + '-interval').value);
     }
 
     calculate();
