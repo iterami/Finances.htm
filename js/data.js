@@ -34,6 +34,7 @@ function calculate(){
     }
 
     const intervals_per_year = {
+      'daily': 365,
       'monthly': 12,
       'quarterly': 4,
       'yearly': 1,
