@@ -22,6 +22,7 @@ function repo_init(){
         'sources': {},
       },
       'storage': {
+        'goal': 1,
         'sources': '{"example":{"amount":5000,"interest":0.23,"interval":12}}',
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
