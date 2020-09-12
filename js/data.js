@@ -5,6 +5,7 @@ function calculate(){
     core_storage_update();
 
     let total = 0;
+    let total_gain = 0;
     let total_increase = 0;
 
     const sources = JSON.parse(core_storage_data['sources']);
@@ -28,11 +29,17 @@ function calculate(){
 
 
         if(document.getElementById(source + '-apply').checked){
-            total += gain;
+            total += amount;
+            total_gain += gain;
             total_increase += gain_increase;
         }
     }
 
+    document.getElementById('total').textContent = core_number_format({
+      'decimals-max': 7,
+      'decimals-min': 2,
+      'number': total,
+    });
     const intervals_per_year = {
       'daily': 365,
       'monthly': 12,
@@ -43,7 +50,7 @@ function calculate(){
         document.getElementById('total-' + interval).textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
-          'number': total / intervals_per_year[interval],
+          'number': total_gain / intervals_per_year[interval],
         });
         document.getElementById('total-' + interval + '-increase').textContent = core_number_format({
           'decimals-max': 7,
@@ -94,7 +101,6 @@ function calculate_goal_seconds(){
     }
 
     const gain_per_second = Number(document.getElementById('total-daily').textContent) / 86400;
-console.log(goal_seconds,gain_per_second,goal_seconds/gain_per_second);
 
     document.getElementById('goal-seconds-seconds').textContent = core_number_format({
       'decimals-max': 7,
