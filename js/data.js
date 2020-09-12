@@ -12,9 +12,10 @@ function calculate(){
     for(const source in sources){
         const amount = Number(document.getElementById(source + '-amount').value);
         const interest = Number(document.getElementById(source + '-interest').value);
+        const interest_percent_year = (interest / 100) * (12 / sources[source]['interval']);
 
-        const gain = amount * (interest / 100) * (12 / sources[source]['interval']);
-        const gain_increase = ((amount + gain) * (interest / 100) * (12 / sources[source]['interval'])) - gain;
+        const gain = amount * interest_percent_year;
+        const gain_increase = (amount + gain) * interest_percent_year - gain;
 
         document.getElementById(source + '-gain').textContent = core_number_format({
           'decimals-max': 7,
