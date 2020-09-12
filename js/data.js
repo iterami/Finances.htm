@@ -52,32 +52,55 @@ function calculate(){
         });
     }
 
-    calculate_goal();
+    calculate_goal_gain();
+    calculate_goal_seconds();
 }
 
-function calculate_goal(){
-    const goal_text = document.getElementById('goal').value;
-    let goal = Number(goal_text);
+function calculate_goal_gain(){
+    const goal_gain_text = document.getElementById('goal-gain').value;
+    let goal_gain = Number(goal_gain_text);
 
-    if(goal_text.length === 0){
-        goal = Math.pow(
+    if(goal_gain_text.length === 0){
+        goal_gain = Math.pow(
           10,
           String(Math.floor(Number(document.getElementById('total-yearly').textContent))).length
         );
-        document.getElementById('goal').value = goal;
+        document.getElementById('goal-gain').value = goal_gain;
     }
 
     const total_yearly_gain = Number(document.getElementById('total-yearly').textContent);
     const total_yearly_increase = Number(document.getElementById('total-yearly-increase').textContent);
-    const years = Math.log(goal / total_yearly_gain) / Math.log(1 + total_yearly_increase / total_yearly_gain);
+    const years = Math.log(goal_gain / total_yearly_gain) / Math.log(1 + total_yearly_increase / total_yearly_gain);
 
-    document.getElementById('goal-years').textContent = years > 0
+    document.getElementById('goal-gain-years').textContent = years > 0
       ? core_number_format({
         'decimals-max': 7,
         'decimals-min': 2,
         'number': years,
       })
       : 'Done!';
+
+    core_storage_save();
+}
+
+function calculate_goal_seconds(){
+    const goal_seconds_text = document.getElementById('goal-seconds').value;
+    let goal_seconds = Number(goal_seconds_text);
+
+    if(goal_seconds_text.length === 0
+      || goal_seconds <= 0){
+        goal_seconds = 1;
+        document.getElementById('goal-seconds').value = goal_seconds;
+    }
+
+    const gain_per_second = Number(document.getElementById('total-daily').textContent) / 86400;
+console.log(goal_seconds,gain_per_second,goal_seconds/gain_per_second);
+
+    document.getElementById('goal-seconds-seconds').textContent = core_number_format({
+      'decimals-max': 7,
+      'decimals-min': 0,
+      'number': goal_seconds / gain_per_second,
+    });
 
     core_storage_save();
 }

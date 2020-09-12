@@ -13,8 +13,11 @@ function repo_init(){
             );
           },
         },
-        'goal': {
-          'oninput': calculate_goal,
+        'goal-gain': {
+          'oninput': calculate_goal_gain,
+        },
+        'goal-seconds': {
+          'oninput': calculate_goal_seconds,
         },
       },
       'globals': {
@@ -22,7 +25,8 @@ function repo_init(){
         'sources': {},
       },
       'storage': {
-        'goal': 1,
+        'goal-gain': 1,
+        'goal-seconds': 1,
         'sources': '{"example":{"amount":5000,"interest":0.23,"interval":12}}',
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
