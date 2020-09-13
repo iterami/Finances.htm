@@ -167,7 +167,8 @@ function update_events(){
             remove_row(this.id);
         };
         document.getElementById(id).oninput = function(){
-            if(this.value in sources){
+            if(this.value.length === 0
+              || this.value in sources){
                 this.value = this.id;
                 return;
             }
