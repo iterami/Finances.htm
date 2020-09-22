@@ -85,7 +85,10 @@ function calculate_goal_gain(){
 
     const total_yearly_gain = Number(document.getElementById('total-yearly').textContent);
     const total_yearly_increase = Number(document.getElementById('total-yearly-increase-yearly').textContent);
-    const years = Math.log(goal_gain / total_yearly_gain) / Math.log(1 + total_yearly_increase / total_yearly_gain);
+    let years = Math.log(goal_gain / total_yearly_gain) / Math.log(1 + total_yearly_increase / total_yearly_gain);
+    if(isNaN(years)){
+        years = Infinity;
+    }
 
     document.getElementById('goal-gain-years').textContent = years > 0
       ? core_number_format({
