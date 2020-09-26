@@ -42,6 +42,7 @@ function calculate(){
       'number': total,
     });
     const intervals_per_year = {
+      'hourly': 8760,
       'daily': 365,
       'monthly': 12,
       'quarterly': 4,
