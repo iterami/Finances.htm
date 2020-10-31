@@ -153,8 +153,7 @@ function new_row(id, amount, insured, interest, interval){
       : row_count;
 
     document.getElementById('sources-body').innerHTML += '<tr>'
-      + '<td><input id="' + row_id + '-remove" type=button value=x>'
-        + '<input id="' + row_id + '-apply" type=checkbox checked>'
+      + '<td><input id="' + row_id + '-remove" type=button value=x><br><input id="' + row_id + '-apply" type=checkbox checked>'
       + '<td><input id="' + row_id + '" value="' + row_id + '"><br><input id="' + row_id + '-amount" value="' + amount + '">'
       + '<td><input id="' + row_id + '-interest" value="' + interest + '"><br><select id="' + row_id + '-interval">'
         + '<option value=1>Monthly</option>'
