@@ -7,10 +7,13 @@ function calculate(){
     let total = 0;
     let total_gain = 0;
     let total_increase = 0;
+    let total_insured = 0;
+    let total_uninsured = 0;
 
     const sources = JSON.parse(core_storage_data['sources']);
     for(const source in sources){
         const amount = Number(document.getElementById(source + '-amount').value);
+        const insured = Number(document.getElementById(source + '-insured').value);
         const interest = Number(document.getElementById(source + '-interest').value);
         const interest_percent_year = (interest / 100) * (12 / sources[source]['interval']);
 
@@ -28,19 +31,40 @@ function calculate(){
           'number': gain_increase,
         });
 
-
         if(document.getElementById(source + '-apply').checked){
             total += amount;
             total_gain += gain;
             total_increase += gain_increase;
+            total_insured += Math.min(
+              amount,
+              insured
+            );
+            if(amount > insured){
+                total_uninsured += amount - insured;
+            }
         }
     }
 
-    document.getElementById('total').textContent = core_number_format({
-      'decimals-max': 7,
-      'decimals-min': 2,
-      'number': total,
-    });
+    const elements = {
+      'total': total,
+      'total-insured': total_insured,
+      'total-uninsured': total_uninsured,
+    };
+    for(const element in elements){
+        document.getElementById(element).textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': elements[element],
+        });
+        document.getElementById(element + '-percent').textContent = total <= 0
+          ? ''
+          : core_number_format({
+              'decimals-max': 7,
+              'decimals-min': 0,
+              'number': (elements[element] / total) * 100,
+            }) + '%';
+    }
+
     const intervals_per_year = {
       'hourly': 8760,
       'daily': 365,
@@ -123,7 +147,7 @@ function calculate_goal_seconds(){
     core_storage_save();
 }
 
-function new_row(id, amount, interest, interval){
+function new_row(id, amount, insured, interest, interval){
     const row_id = id !== void 0
       ? id
       : row_count;
@@ -139,6 +163,7 @@ function new_row(id, amount, interest, interval){
         + '<option value=3>Quarterly</option>'
         + '<option value=12>Yearly</option>'
       + '</select>'
+      + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
       + '<td id="' + row_id + '-gain">'
       + '<td id="' + row_id + '-gain-increase">';
 
@@ -146,6 +171,7 @@ function new_row(id, amount, interest, interval){
 
     sources[row_id] = {
       'amount': amount,
+      'insured': insured,
       'interest': interest,
       'interval': interval,
     };
@@ -190,6 +216,7 @@ function update_events(){
             );
         };
         document.getElementById(id + '-amount').oninput = update_values;
+        document.getElementById(id + '-insured').oninput = update_values;
         document.getElementById(id + '-interest').oninput = update_values;
         document.getElementById(id + '-interval').onchange = update_values;
 
@@ -223,6 +250,7 @@ function update_ids(old_id, new_id){
 function update_values(){
     for(const id in sources){
         sources[id]['amount'] = Number(document.getElementById(id + '-amount').value);
+        sources[id]['insured'] = Number(document.getElementById(id + '-insured').value);
         sources[id]['interest'] = Number(document.getElementById(id + '-interest').value);
         sources[id]['interval'] = Number(document.getElementById(id + '-interval').value);
     }

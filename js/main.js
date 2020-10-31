@@ -5,12 +5,12 @@ function repo_init(){
       'events': {
         'add-row': {
           'onclick': function(){
-            new_row(
-              void 0,
-              0,
-              0,
-              1
-            );
+              new_row(
+                void 0,
+                0,
+                0,
+                1
+              );
           },
         },
         'goal-gain': {
@@ -27,7 +27,7 @@ function repo_init(){
       'storage': {
         'goal-gain': 1,
         'goal-seconds': 1,
-        'sources': '{"example":{"amount":5000,"interest":0.23,"interval":12}}',
+        'sources': '{"example":{"amount":5000,"insured":250000,"interest":0.23,"interval":12}}',
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
@@ -38,6 +38,7 @@ function repo_init(){
         new_row(
           source,
           sources[source]['amount'],
+          sources[source]['insured'],
           sources[source]['interest'],
           sources[source]['interval']
         );
