@@ -155,17 +155,14 @@ function new_row(id, amount, insured, interest, interval){
     document.getElementById('sources-body').innerHTML += '<tr>'
       + '<td><input id="' + row_id + '-remove" type=button value=x>'
         + '<input id="' + row_id + '-apply" type=checkbox checked>'
-      + '<td><input id="' + row_id + '" value="' + row_id + '">'
-      + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
-      + '<td><input id="' + row_id + '-interest" value="' + interest + '">'
-      + '<td><select id="' + row_id + '-interval">'
+      + '<td><input id="' + row_id + '" value="' + row_id + '"><br><input id="' + row_id + '-amount" value="' + amount + '">'
+      + '<td><input id="' + row_id + '-interest" value="' + interest + '"><br><select id="' + row_id + '-interval">'
         + '<option value=1>Monthly</option>'
         + '<option value=3>Quarterly</option>'
         + '<option value=12>Yearly</option>'
       + '</select>'
       + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
-      + '<td id="' + row_id + '-gain">'
-      + '<td id="' + row_id + '-gain-increase">';
+      + '<td><div id="' + row_id + '-gain"></div><div id="' + row_id + '-gain-increase">';
 
     document.getElementById(row_id + '-interval').value = interval;
 
