@@ -27,7 +27,7 @@ function repo_init(){
       'storage': {
         'goal-gain': 1,
         'goal-seconds': 1,
-        'sources': '{"example":{"amount":5000,"insured":250000,"interest":0.23,"interval":12}}',
+        'sources': '{"example":{"amount":5000,"insured":0,"interest":0.23,"interval":12}}',
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
