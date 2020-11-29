@@ -66,14 +66,14 @@ function calculate(){
     }
 
     const intervals_per_year = {
-      'hourly': 8760,
-      'daily': 365,
-      'monthly': 12,
-      'quarterly': 4,
-      'yearly': 1,
+      'hour': 8760,
+      'day': 365,
+      'month': 12,
+      'quarter': 4,
+      'year': 1,
     };
     for(const interval in intervals_per_year){
-        const increase_yearly = total_increase / intervals_per_year[interval];
+        const increase_year = total_increase / intervals_per_year[interval];
 
         document.getElementById('total-' + interval).textContent = core_number_format({
           'decimals-max': 7,
@@ -83,12 +83,12 @@ function calculate(){
         document.getElementById('total-' + interval + '-increase-' + interval).textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
-          'number': increase_yearly / intervals_per_year[interval],
+          'number': increase_year / intervals_per_year[interval],
         });
-        document.getElementById('total-' + interval + '-increase-yearly').textContent = core_number_format({
+        document.getElementById('total-' + interval + '-increase-year').textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
-          'number': increase_yearly,
+          'number': increase_year,
         });
     }
 
@@ -103,14 +103,14 @@ function calculate_goal_gain(){
     if(goal_gain_text.length === 0){
         goal_gain = Math.pow(
           10,
-          String(Math.floor(Number(document.getElementById('total-yearly').textContent))).length
+          String(Math.floor(Number(document.getElementById('total-year').textContent))).length
         );
         document.getElementById('goal-gain').value = goal_gain;
     }
 
-    const total_yearly_gain = Number(document.getElementById('total-yearly').textContent);
-    const total_yearly_increase = Number(document.getElementById('total-yearly-increase-yearly').textContent);
-    let years = Math.log(goal_gain / total_yearly_gain) / Math.log(1 + total_yearly_increase / total_yearly_gain);
+    const total_year_gain = Number(document.getElementById('total-year').textContent);
+    const total_year_increase = Number(document.getElementById('total-year-increase-year').textContent);
+    let years = Math.log(goal_gain / total_year_gain) / Math.log(1 + total_year_increase / total_year_gain);
     if(isNaN(years)){
         years = Infinity;
     }
@@ -136,7 +136,7 @@ function calculate_goal_seconds(){
         document.getElementById('goal-seconds').value = goal_seconds;
     }
 
-    const gain_per_second = Number(document.getElementById('total-daily').textContent) / 86400;
+    const gain_per_second = Number(document.getElementById('total-day').textContent) / 86400;
 
     document.getElementById('goal-seconds-seconds').textContent = core_number_format({
       'decimals-max': 7,
@@ -158,9 +158,9 @@ function new_row(id, amount, insured, interest, interval){
       + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
       + '<td><input id="' + row_id + '-interest" value="' + interest + '">'
       + '<td><select id="' + row_id + '-interval">'
-        + '<option value=1>Monthly</option>'
-        + '<option value=3>Quarterly</option>'
-        + '<option value=12>Yearly</option>'
+        + '<option value=1>Month</option>'
+        + '<option value=3>Quarter</option>'
+        + '<option value=12>Year</option>'
       + '</select>'
       + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
       + '<td id="' + row_id + '-gain">'
