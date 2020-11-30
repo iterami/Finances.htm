@@ -73,12 +73,13 @@ function calculate(){
       'year': 1,
     };
     for(const interval in intervals_per_year){
+        const increase = total_gain / intervals_per_year[interval];
         const increase_year = total_increase / intervals_per_year[interval];
 
         document.getElementById('total-' + interval).textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
-          'number': total_gain / intervals_per_year[interval],
+          'number': increase,
         });
         document.getElementById('total-' + interval + '-increase-' + interval).textContent = core_number_format({
           'decimals-max': 7,
@@ -90,6 +91,11 @@ function calculate(){
           'decimals-min': 2,
           'number': increase_year,
         });
+        document.getElementById('total-' + interval + '-percent').textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': (increase / total) * 100,
+        }) + '%';
     }
 
     calculate_goal_gain();
