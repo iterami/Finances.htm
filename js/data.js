@@ -79,7 +79,7 @@ function calculate(){
           'decimals-min': 2,
           'number': increase_year / intervals[interval],
         });
-        document.getElementById('total-' + interval + '-increase-year').textContent = core_number_format({
+        document.getElementById('total-' + interval + '-increase-yearly').textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
           'number': increase_year,
@@ -110,7 +110,7 @@ function calculate_goal_gain(){
     }
 
     const total_year_gain = Number(document.getElementById('total-year').textContent);
-    const total_year_increase = Number(document.getElementById('total-year-increase-year').textContent);
+    const total_year_increase = Number(document.getElementById('total-year-increase-yearly').textContent);
     let years = Math.log(goal_gain / total_year_gain) / Math.log(1 + total_year_increase / total_year_gain);
     if(isNaN(years)){
         years = Infinity;
