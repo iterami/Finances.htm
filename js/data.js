@@ -159,7 +159,7 @@ function new_row(id, amount, insured, interest, interval){
       + '<td><input id="' + row_id + '-interest" value="' + interest + '">'
       + '<td><select id="' + row_id + '-interval">';
     for(const interval in intervals){
-        bodycontent += '<option value=' + intervals[interval] + '>' + interval + '</option>';
+        bodycontent += '<option value=' + intervals[interval] + '>' + interval + ' ' + intervals[interval] + '</option>';
     }
     bodycontent += '</select>'
       + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
