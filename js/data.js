@@ -15,7 +15,7 @@ function calculate(){
         const amount = Number(document.getElementById(source + '-amount').value);
         const insured = Number(document.getElementById(source + '-insured').value);
         const interest = Number(document.getElementById(source + '-interest').value);
-        const interest_percent_year = (interest / 100) * (12 / sources[source]['interval']);
+        const interest_percent_year = (interest / 100) * sources[source]['interval'];
 
         const gain = amount * interest_percent_year;
         const gain_increase = (amount + gain) * interest_percent_year - gain;
@@ -65,16 +65,9 @@ function calculate(){
             }) + '%';
     }
 
-    const intervals_per_year = {
-      'hour': 8760,
-      'day': 365,
-      'month': 12,
-      'quarter': 4,
-      'year': 1,
-    };
-    for(const interval in intervals_per_year){
-        const increase = total_gain / intervals_per_year[interval];
-        const increase_year = total_increase / intervals_per_year[interval];
+    for(const interval in intervals){
+        const increase = total_gain / intervals[interval];
+        const increase_year = total_increase / intervals[interval];
 
         document.getElementById('total-' + interval).textContent = core_number_format({
           'decimals-max': 7,
@@ -84,7 +77,7 @@ function calculate(){
         document.getElementById('total-' + interval + '-increase-' + interval).textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
-          'number': increase_year / intervals_per_year[interval],
+          'number': increase_year / intervals[interval],
         });
         document.getElementById('total-' + interval + '-increase-year').textContent = core_number_format({
           'decimals-max': 7,
@@ -159,21 +152,21 @@ function new_row(id, amount, insured, interest, interval){
     const row_id = id !== void 0
       ? id
       : row_count;
-
-    document.getElementById('sources-body').innerHTML += '<tr>'
+    let bodycontent = '<tr>'
       + '<td><input id="' + row_id + '-remove" type=button value=x><input id="' + row_id + '-apply" type=checkbox checked>'
       + '<td><input id="' + row_id + '" value="' + row_id + '">'
       + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
       + '<td><input id="' + row_id + '-interest" value="' + interest + '">'
-      + '<td><select id="' + row_id + '-interval">'
-        + '<option value=1>Month</option>'
-        + '<option value=3>Quarter</option>'
-        + '<option value=12>Year</option>'
-      + '</select>'
+      + '<td><select id="' + row_id + '-interval">';
+    for(const interval in intervals){
+        bodycontent += '<option value=' + intervals[interval] + '>' + interval + '</option>';
+    }
+    bodycontent += '</select>'
       + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
       + '<td id="' + row_id + '-gain">'
       + '<td id="' + row_id + '-gain-increase">';
 
+    document.getElementById('sources-body').innerHTML += bodycontent;
     document.getElementById(row_id + '-interval').value = interval;
 
     sources[row_id] = {

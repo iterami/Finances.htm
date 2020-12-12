@@ -21,6 +21,13 @@ function repo_init(){
         },
       },
       'globals': {
+        'intervals': {
+          'hour': 8760,
+          'day': 365,
+          'month': 12,
+          'quarter': 4,
+          'year': 1,
+        },
         'row_count': 0,
         'sources': {},
       },
