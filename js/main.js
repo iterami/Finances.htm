@@ -9,6 +9,7 @@ function repo_init(){
                 void 0,
                 0,
                 0,
+                0,
                 1
               );
           },
@@ -26,6 +27,7 @@ function repo_init(){
           'day': 365,
           'month': 12,
           'quarter': 4,
+          'half': 2,
           'year': 1,
         },
         'row_count': 0,
@@ -39,6 +41,17 @@ function repo_init(){
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
     });
+
+    let intervalsbody = '';
+    for(const interval in intervals){
+        intervalsbody += '<tr>'
+          + '<td>' + interval
+          + '<td id=total-' + interval + '>'
+          + '<td id=total-' + interval + '-increase-' + interval + '>'
+          + '<td id=total-' + interval + '-increase-year>'
+          + '<td id=total-' + interval + '-percent>';
+    }
+    document.getElementById('intervals-body').innerHTML += intervalsbody;
 
     const sources = JSON.parse(core_storage_data['sources']);
     for(const source in sources){

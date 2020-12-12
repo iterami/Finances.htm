@@ -152,22 +152,15 @@ function new_row(id, amount, insured, interest, interval){
     const row_id = id !== void 0
       ? id
       : row_count;
-    let bodycontent = '<tr>'
+    document.getElementById('sources-body').innerHTML += '<tr>'
       + '<td><input id="' + row_id + '-remove" type=button value=x><input id="' + row_id + '-apply" type=checkbox checked>'
       + '<td><input id="' + row_id + '" value="' + row_id + '">'
       + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
       + '<td><input id="' + row_id + '-interest" value="' + interest + '">'
-      + '<td><select id="' + row_id + '-interval">';
-    for(const interval in intervals){
-        bodycontent += '<option value=' + intervals[interval] + '>' + interval + ' ' + intervals[interval] + '</option>';
-    }
-    bodycontent += '</select>'
+      + '<td><input id="' + row_id + '-interval" value="' + interval + '">'
       + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
       + '<td id="' + row_id + '-gain">'
       + '<td id="' + row_id + '-gain-increase">';
-
-    document.getElementById('sources-body').innerHTML += bodycontent;
-    document.getElementById(row_id + '-interval').value = interval;
 
     sources[row_id] = {
       'amount': amount,
@@ -218,9 +211,7 @@ function update_events(){
         document.getElementById(id + '-amount').oninput = update_values;
         document.getElementById(id + '-insured').oninput = update_values;
         document.getElementById(id + '-interest').oninput = update_values;
-        document.getElementById(id + '-interval').onchange = update_values;
-
-        document.getElementById(id + '-interval').value = sources[id]['interval'];
+        document.getElementById(id + '-interval').oninput = update_values;
     }
 
     calculate();
@@ -252,7 +243,13 @@ function update_values(){
         sources[id]['amount'] = Number(document.getElementById(id + '-amount').value);
         sources[id]['insured'] = Number(document.getElementById(id + '-insured').value);
         sources[id]['interest'] = Number(document.getElementById(id + '-interest').value);
-        sources[id]['interval'] = Number(document.getElementById(id + '-interval').value);
+
+        let interval = Number(document.getElementById(id + '-interval').value);
+        if(isNaN(interval)
+          || interval <= 0){
+            interval = 1;
+        }
+        sources[id]['interval'] = interval;
     }
 
     calculate();
