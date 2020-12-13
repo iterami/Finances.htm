@@ -10,7 +10,7 @@ function calculate(){
     let total_insured = 0;
     let total_uninsured = 0;
 
-    const sources = JSON.parse(core_storage_data['sources']);
+    const sources = globalThis.sources;
     for(const source in sources){
         const amount = Number(document.getElementById(source + '-amount').value);
         const insured = Number(document.getElementById(source + '-insured').value);
