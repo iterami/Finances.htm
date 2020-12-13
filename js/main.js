@@ -29,6 +29,7 @@ function repo_init(){
           'quarter': 4,
           'half': 2,
           'year': 1,
+          'custom': 0.5,
         },
         'row_count': 0,
         'sources': {},
@@ -46,13 +47,24 @@ function repo_init(){
     for(const interval in intervals){
         intervalsbody += '<tr>'
           + '<td>' + interval
-          + '<td>' + intervals[interval]
+          + '<td>' + (interval === 'custom'
+            ? '<input class=mini id=total-custom-intervals value=0.5>'
+            : intervals[interval])
           + '<td id=total-' + interval + '>'
           + '<td id=total-' + interval + '-percent>'
           + '<td id=total-' + interval + '-increase-' + interval + '>'
           + '<td id=total-' + interval + '-increase-yearly>';
     }
-    document.getElementById('intervals-body').innerHTML += intervalsbody;
+    document.getElementById('intervals-body').innerHTML = intervalsbody;
+    document.getElementById('total-custom-intervals').oninput = function(){
+        let customintervals = this.value;
+        if(isNaN(customintervals)
+          || customintervals < 0){
+            customintervals = 0;
+        }
+        intervals['custom'] = customintervals;
+        calculate();
+    };
 
     const sources = JSON.parse(core_storage_data['sources']);
     for(const source in sources){
