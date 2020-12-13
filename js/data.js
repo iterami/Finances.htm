@@ -74,6 +74,13 @@ function calculate(){
           'decimals-min': 2,
           'number': increase,
         });
+        document.getElementById('total-' + interval + '-percent').textContent = total === 0
+          ? ''
+          : core_number_format({
+              'decimals-max': 7,
+              'decimals-min': 2,
+              'number': (increase / total) * 100,
+            }) + '%';
         document.getElementById('total-' + interval + '-increase-' + interval).textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
@@ -84,13 +91,6 @@ function calculate(){
           'decimals-min': 2,
           'number': increase_year,
         });
-        document.getElementById('total-' + interval + '-percent').textContent = total === 0
-          ? ''
-          : core_number_format({
-              'decimals-max': 7,
-              'decimals-min': 2,
-              'number': (increase / total) * 100,
-            }) + '%';
     }
 
     calculate_goal_gain();

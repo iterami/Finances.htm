@@ -48,9 +48,9 @@ function repo_init(){
           + '<td>' + interval
           + '<td>' + intervals[interval]
           + '<td id=total-' + interval + '>'
+          + '<td id=total-' + interval + '-percent>'
           + '<td id=total-' + interval + '-increase-' + interval + '>'
-          + '<td id=total-' + interval + '-increase-yearly>'
-          + '<td id=total-' + interval + '-percent>';
+          + '<td id=total-' + interval + '-increase-yearly>';
     }
     document.getElementById('intervals-body').innerHTML += intervalsbody;
 
