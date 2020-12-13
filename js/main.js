@@ -46,6 +46,7 @@ function repo_init(){
     for(const interval in intervals){
         intervalsbody += '<tr>'
           + '<td>' + interval
+          + '<td>' + intervals[interval]
           + '<td id=total-' + interval + '>'
           + '<td id=total-' + interval + '-increase-' + interval + '>'
           + '<td id=total-' + interval + '-increase-yearly>'
