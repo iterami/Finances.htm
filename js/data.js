@@ -171,7 +171,6 @@ function new_row(id, amount, insured, gain, interval, type){
       + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
       + '<td id="' + row_id + '-total">'
       + '<td id="' + row_id + '-total-increase">';
-    document.getElementById(row_id + '-type').value = type;
 
     sources[row_id] = {
       'amount': amount,
@@ -180,6 +179,10 @@ function new_row(id, amount, insured, gain, interval, type){
       'interval': interval,
       'type': type,
     };
+
+    for(const id in sources){
+        document.getElementById(id + '-type').value = sources[id]['type'];
+    }
 
     row_count++;
     update_events();
