@@ -14,18 +14,27 @@ function calculate(){
     for(const source in sources){
         const amount = Number(document.getElementById(source + '-amount').value);
         const insured = Number(document.getElementById(source + '-insured').value);
-        const interest = Number(document.getElementById(source + '-interest').value);
-        const interest_percent_year = (interest / 100) * sources[source]['interval'];
+        const interval_gain = Number(document.getElementById(source + '-gain').value);
+        const interval_type = document.getElementById(source + '-type').value;
 
-        const gain = amount * interest_percent_year;
-        const gain_increase = (amount + gain) * interest_percent_year - gain;
+        let gain = 0;
+        let gain_increase = 0;
 
-        document.getElementById(source + '-gain').textContent = core_number_format({
+        if(interval_type === '%'){
+            const interest_percent_year = (interval_gain / 100) * sources[source]['interval'];
+            gain = amount * interest_percent_year;
+            gain_increase = (amount + gain) * interest_percent_year - gain;
+
+        }else{
+            gain = interval_gain * sources[source]['interval'];
+        }
+
+        document.getElementById(source + '-total').textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
           'number': gain,
         });
-        document.getElementById(source + '-gain-increase').textContent = core_number_format({
+        document.getElementById(source + '-total-increase').textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
           'number': gain_increase,
@@ -148,7 +157,7 @@ function calculate_goal_seconds(){
     core_storage_save();
 }
 
-function new_row(id, amount, insured, interest, interval){
+function new_row(id, amount, insured, gain, interval, type){
     const row_id = id !== void 0
       ? id
       : row_count;
@@ -156,18 +165,20 @@ function new_row(id, amount, insured, interest, interval){
       + '<td><input id="' + row_id + '-remove" type=button value=x><input id="' + row_id + '-apply" type=checkbox checked>'
       + '<td><input id="' + row_id + '" value="' + row_id + '">'
       + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
-      + '<td><input id="' + row_id + '-interest" value="' + interest + '">'
-        + '<select><option>%</option></select>'
+      + '<td><input id="' + row_id + '-gain" value="' + gain + '">'
+        + '<select id="' + row_id + '-type"><option value=%>%</option><option value=+>+</option></select>'
       + '<td><input class=mini id="' + row_id + '-interval" value="' + interval + '">'
       + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
-      + '<td id="' + row_id + '-gain">'
-      + '<td id="' + row_id + '-gain-increase">';
+      + '<td id="' + row_id + '-total">'
+      + '<td id="' + row_id + '-total-increase">';
+    document.getElementById(row_id + '-type').value = type;
 
     sources[row_id] = {
       'amount': amount,
+      'gain': gain,
       'insured': insured,
-      'interest': interest,
       'interval': interval,
+      'type': type,
     };
 
     row_count++;
@@ -210,9 +221,10 @@ function update_events(){
             );
         };
         document.getElementById(id + '-amount').oninput = update_values;
+        document.getElementById(id + '-gain').oninput = update_values;
         document.getElementById(id + '-insured').oninput = update_values;
-        document.getElementById(id + '-interest').oninput = update_values;
         document.getElementById(id + '-interval').oninput = update_values;
+        document.getElementById(id + '-type').onchange = update_values;
     }
 
     calculate();
@@ -224,10 +236,11 @@ function update_ids(old_id, new_id){
       '-amount',
       '-apply',
       '-gain',
-      '-gain-increase',
-      '-interest',
       '-interval',
       '-remove',
+      '-total',
+      '-total-increase',
+      '-type',
     ];
     for(const i in elements){
         document.getElementById(old_id + elements[i]).id = new_id + elements[i];
@@ -242,8 +255,9 @@ function update_ids(old_id, new_id){
 function update_values(){
     for(const id in sources){
         sources[id]['amount'] = Number(document.getElementById(id + '-amount').value);
+        sources[id]['gain'] = Number(document.getElementById(id + '-gain').value);
         sources[id]['insured'] = Number(document.getElementById(id + '-insured').value);
-        sources[id]['interest'] = Number(document.getElementById(id + '-interest').value);
+        sources[id]['type'] = document.getElementById(id + '-type').value;
 
         let interval = Number(document.getElementById(id + '-interval').value);
         if(isNaN(interval)

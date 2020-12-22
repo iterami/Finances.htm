@@ -10,7 +10,8 @@ function repo_init(){
                 0,
                 0,
                 0,
-                1
+                1,
+                '%'
               );
           },
         },
@@ -37,7 +38,7 @@ function repo_init(){
       'storage': {
         'goal-gain': 1,
         'goal-seconds': 1,
-        'sources': '{"example":{"amount":5000,"insured":0,"interest":0.23,"interval":12}}',
+        'sources': '{"example":{"amount":5000,"gain":0.23,"insured":0,"interval":12,"type":"%"}}',
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
@@ -72,8 +73,9 @@ function repo_init(){
           source,
           sources[source]['amount'],
           sources[source]['insured'],
-          sources[source]['interest'],
-          sources[source]['interval']
+          sources[source]['gain'],
+          sources[source]['interval'],
+          sources[source]['type']
         );
     }
 }
