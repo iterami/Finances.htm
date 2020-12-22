@@ -157,6 +157,7 @@ function new_row(id, amount, insured, interest, interval){
       + '<td><input id="' + row_id + '" value="' + row_id + '">'
       + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
       + '<td><input id="' + row_id + '-interest" value="' + interest + '">'
+        + '<select><option>%</option></select>'
       + '<td><input class=mini id="' + row_id + '-interval" value="' + interval + '">'
       + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
       + '<td id="' + row_id + '-gain">'
