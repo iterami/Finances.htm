@@ -236,6 +236,7 @@ function update_ids(old_id, new_id){
       '-amount',
       '-apply',
       '-gain',
+      '-insured',
       '-interval',
       '-remove',
       '-total',
