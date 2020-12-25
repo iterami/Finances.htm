@@ -168,7 +168,7 @@ function new_row(id, amount, insured, gain, interval, type){
       + '<td><input id="' + row_id + '-gain" value="' + gain + '">'
         + '<select id="' + row_id + '-type"><option value=%>%</option><option value=+>+</option></select>'
       + '<td><input class=mini id="' + row_id + '-interval" value="' + interval + '">'
-      + '<td><input id="' + row_id + '-insured" value="' + insured + '">'
+      + '<td><input class=mini id="' + row_id + '-insured" value="' + insured + '">'
       + '<td id="' + row_id + '-total">'
       + '<td id="' + row_id + '-total-increase">';
 
