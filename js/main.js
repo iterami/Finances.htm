@@ -15,6 +15,16 @@ function repo_init(){
               );
           },
         },
+        'all-apply': {
+          'onchange': function(){
+              const sources = globalThis.sources;
+              for(const source in sources){
+                  document.getElementById(source + '-apply').checked = this.checked;
+              }
+
+              calculate();
+          },
+        },
         'goal-gain': {
           'oninput': calculate_goal_gain,
         },
