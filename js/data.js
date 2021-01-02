@@ -8,7 +8,6 @@ function calculate(){
     let total_gain = 0;
     let total_increase = 0;
     let total_insured = 0;
-    let total_uninsured = 0;
 
     const sources = globalThis.sources;
     for(const source in sources){
@@ -48,16 +47,13 @@ function calculate(){
               amount,
               insured
             );
-            if(amount > insured){
-                total_uninsured += amount - insured;
-            }
         }
     }
 
     const elements = {
       'total': total,
       'total-insured': total_insured,
-      'total-uninsured': total_uninsured,
+      'total-uninsured': total - total_insured,
     };
     for(const element in elements){
         document.getElementById(element).textContent = core_number_format({
