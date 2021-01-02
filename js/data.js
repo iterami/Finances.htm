@@ -132,8 +132,6 @@ function calculate_goal_gain(){
         'number': years,
       })
       : 'Done!';
-
-    core_storage_save();
 }
 
 function calculate_goal_seconds(){
@@ -153,8 +151,6 @@ function calculate_goal_seconds(){
       'decimals-min': 0,
       'number': goal_seconds / gain_per_second,
     });
-
-    core_storage_save();
 }
 
 function new_row(id, amount, insured, gain, interval, type){
