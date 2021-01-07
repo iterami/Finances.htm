@@ -25,9 +25,6 @@ function repo_init(){
               calculate();
           },
         },
-        'goal-gain': {
-          'oninput': calculate_goal_gain,
-        },
         'goal-seconds': {
           'oninput': calculate_goal_seconds,
         },
@@ -46,7 +43,6 @@ function repo_init(){
         'sources': {},
       },
       'storage': {
-        'goal-gain': 1,
         'goal-seconds': 1,
         'sources': '{"example":{"amount":5000,"gain":0.23,"insured":0,"interval":12,"type":"%"}}',
       },

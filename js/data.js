@@ -98,36 +98,7 @@ function calculate(){
         });
     }
 
-    calculate_goal_gain();
     calculate_goal_seconds();
-}
-
-function calculate_goal_gain(){
-    const goal_gain_text = document.getElementById('goal-gain').value;
-    let goal_gain = Number(goal_gain_text);
-
-    if(goal_gain_text.length === 0){
-        goal_gain = Math.pow(
-          10,
-          String(Math.floor(Number(document.getElementById('total-year').textContent))).length
-        );
-        document.getElementById('goal-gain').value = goal_gain;
-    }
-
-    const total_year_gain = Number(document.getElementById('total-year').textContent);
-    const total_year_increase = Number(document.getElementById('total-year-increase-yearly').textContent);
-    let years = Math.log(goal_gain / total_year_gain) / Math.log(1 + total_year_increase / total_year_gain);
-    if(isNaN(years)){
-        years = Infinity;
-    }
-
-    document.getElementById('goal-gain-years').textContent = years > 0
-      ? core_number_format({
-        'decimals-max': 7,
-        'decimals-min': 2,
-        'number': years,
-      })
-      : 'Done!';
 }
 
 function calculate_goal_seconds(){
