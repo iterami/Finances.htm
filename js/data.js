@@ -38,6 +38,11 @@ function calculate(){
           'decimals-min': 2,
           'number': gain_increase,
         });
+        document.getElementById(source + '-gain-percent').textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': gain / amount * 100,
+        }) + '%';
 
         if(document.getElementById(source + '-apply').checked){
             total += amount;
@@ -133,7 +138,8 @@ function new_row(id, amount, insured, gain, interval, type){
       + '<td><input class=mini id="' + row_id + '-interval" value="' + interval + '">'
       + '<td><input class=mini id="' + row_id + '-insured" value="' + insured + '">'
       + '<td id="' + row_id + '-total">'
-      + '<td id="' + row_id + '-total-increase">';
+      + '<td id="' + row_id + '-total-increase">'
+      + '<td id="' + row_id + '-gain-percent">';
 
     sources[row_id] = {
       'amount': amount,
@@ -202,6 +208,7 @@ function update_ids(old_id, new_id){
       '-amount',
       '-apply',
       '-gain',
+      '-gain-percent',
       '-insured',
       '-interval',
       '-remove',
