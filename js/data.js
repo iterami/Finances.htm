@@ -154,7 +154,6 @@ function new_row(id, amount, insured, gain, interval, type){
     }
 
     row_count++;
-    update_events();
 }
 
 function remove_row(row_id){

@@ -13,6 +13,7 @@ function repo_init(){
                 1,
                 '%'
               );
+              update_events();
           },
         },
         'all-apply': {
@@ -84,4 +85,5 @@ function repo_init(){
           sources[source]['type']
         );
     }
+    update_events();
 }
