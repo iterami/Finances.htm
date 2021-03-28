@@ -45,7 +45,7 @@ function repo_init(){
       },
       'storage': {
         'goal-seconds': 1,
-        'sources': '{"example":{"amount":5000,"gain":0.23,"insured":0,"interval":12,"type":"%"}}',
+        'sources': '{"example":{"amount":5000,"gain":0.23,"interval":12,"type":"%"}}',
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
@@ -79,7 +79,6 @@ function repo_init(){
         new_row(
           source,
           sources[source]['amount'],
-          sources[source]['insured'],
           sources[source]['gain'],
           sources[source]['interval'],
           sources[source]['type']
