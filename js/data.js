@@ -140,7 +140,7 @@ function remove_row(row_id){
       row_id.indexOf('-')
     );
 
-    if(!globalThis.confirm('Remove row ' + row_id + '?')){
+    if(!globalThis.confirm('Remove row "' + row_id + '"?')){
         return;
     }
 
