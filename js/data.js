@@ -55,6 +55,14 @@ function calculate(){
       'number': total,
     });
 
+    for(const source in sources){
+        document.getElementById(source + '-percent').textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': (Number(document.getElementById(source + '-amount').value) / total) * 100,
+        });
+    }
+
     for(const interval in intervals){
         const increase = total_gain / intervals[interval];
         const increase_year = total_increase / intervals[interval];
@@ -111,9 +119,10 @@ function new_row(id, amount, gain, interval, type){
       : row_count;
     document.getElementById('sources-body').innerHTML += '<tr>'
       + '<td><input id="' + row_id + '-remove" type=button value=x><input id="' + row_id + '-apply" type=checkbox checked>'
-      + '<td><input id="' + row_id + '" value="' + row_id + '">'
+      + '<td><input class=mini id="' + row_id + '" value="' + row_id + '">'
       + '<td><input id="' + row_id + '-amount" value="' + amount + '">'
-      + '<td><input id="' + row_id + '-gain" value="' + gain + '">'
+      + '<td id="' + row_id + '-percent">'
+      + '<td><input class=mini id="' + row_id + '-gain" value="' + gain + '">'
         + '<select id="' + row_id + '-type"><option value=%>%</option><option value=+>+</option></select>'
       + '<td><input class=mini id="' + row_id + '-interval" value="' + interval + '">'
       + '<td id="' + row_id + '-total">'
@@ -186,6 +195,7 @@ function update_ids(old_id, new_id){
       '-gain',
       '-gain-percent',
       '-interval',
+      '-percent',
       '-remove',
       '-total',
       '-total-increase',
