@@ -40,7 +40,7 @@ function calculate(){
           'decimals-max': 7,
           'decimals-min': 2,
           'number': gain / amount * 100,
-        }) + '%';
+        });
 
         if(document.getElementById(source + '-apply').checked){
             total += amount;
@@ -78,7 +78,7 @@ function calculate(){
               'decimals-max': 7,
               'decimals-min': 2,
               'number': (increase / total) * 100,
-            }) + '%';
+            });
         document.getElementById('total-' + interval + '-increase-' + interval).textContent = core_number_format({
           'decimals-max': 7,
           'decimals-min': 2,
