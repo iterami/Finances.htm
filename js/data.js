@@ -103,11 +103,11 @@ function format_number(number, pad){
     if(pad !== false){
         const decimal = result.indexOf('.');
         let decimal_length = decimal === -1
-          ? 0
-          : result.length - decimal;
+          ? -1
+          : result.length - decimal - 1;
 
-        if(decimal_length < core_storage_data['decimals'] + 1){
-            while(decimal_length < core_storage_data['decimals'] + 1){
+        if(decimal_length < core_storage_data['decimals']){
+            while(decimal_length < core_storage_data['decimals']){
                 result += '&nbsp;';
                     decimal_length++;
             }
