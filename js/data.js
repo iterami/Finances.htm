@@ -47,7 +47,10 @@ function calculate(){
         document.getElementById(source + '-year-gain-percent').innerHTML = format_number(source_totals[source]['gain'] / total_gain * 100);
     }
 
-    document.getElementById('total').innerHTML = format_number(total);
+    document.getElementById('total').innerHTML = format_number(
+      total,
+      false
+    );
 
     for(const source in sources){
         document.getElementById(source + '-percent').innerHTML = format_number((Number(document.getElementById(source + '-amount').value) / total) * 100);
@@ -80,10 +83,13 @@ function calculate_goal_seconds(){
 
     const gain_per_second = Number(document.getElementById('total-day').textContent) / 86400;
 
-    document.getElementById('goal-seconds-seconds').innerHTML = format_number(goal_seconds / gain_per_second);
+    document.getElementById('goal-seconds-seconds').innerHTML = format_number(
+      goal_seconds / gain_per_second,
+      false
+    );
 }
 
-function format_number(number){
+function format_number(number, pad){
     if(!Number.isFinite(number)){
         return '';
     }
@@ -94,15 +100,17 @@ function format_number(number){
       'number': number,
     });
 
-    const decimal = result.indexOf('.');
-    let decimal_length = decimal === -1
-      ? 0
-      : result.length - decimal;
+    if(pad !== false){
+        const decimal = result.indexOf('.');
+        let decimal_length = decimal === -1
+          ? 0
+          : result.length - decimal;
 
-    if(decimal_length < core_storage_data['decimals'] + 1){
-        while(decimal_length < core_storage_data['decimals'] + 1){
-            result += '&nbsp;';
-                decimal_length++;
+        if(decimal_length < core_storage_data['decimals'] + 1){
+            while(decimal_length < core_storage_data['decimals'] + 1){
+                result += '&nbsp;';
+                    decimal_length++;
+            }
         }
     }
 
