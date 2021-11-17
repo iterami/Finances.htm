@@ -7,6 +7,7 @@ function calculate(){
     let total = 0;
     let total_gain = 0;
     let total_increase = 0;
+    const source_totals = {};
 
     const sources = globalThis.sources;
     for(const source in sources){
@@ -26,27 +27,40 @@ function calculate(){
             gain = interval_gain * sources[source]['interval'];
         }
 
-        document.getElementById(source + '-total').textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': gain,
-        });
-        document.getElementById(source + '-total-increase').textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': gain_increase,
-        });
-        document.getElementById(source + '-gain-percent').textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': gain / amount * 100,
-        });
-
         if(document.getElementById(source + '-apply').checked){
             total += amount;
             total_gain += gain;
             total_increase += gain_increase;
         }
+
+        source_totals[source] = {
+          'amount': amount,
+          'gain': gain,
+          'gain-increase': gain_increase,
+        };
+    }
+
+    for(const source in sources){
+        document.getElementById(source + '-total').textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': source_totals[source]['gain'],
+        });
+        document.getElementById(source + '-total-increase').textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': source_totals[source]['gain-increase'],
+        });
+        document.getElementById(source + '-gain-percent').textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': source_totals[source]['gain'] / source_totals[source]['amount'] * 100,
+        });
+        document.getElementById(source + '-year-gain-percent').textContent = core_number_format({
+          'decimals-max': 7,
+          'decimals-min': 2,
+          'number': source_totals[source]['gain'] / total_gain * 100,
+        });
     }
 
     document.getElementById('total').textContent = core_number_format({
@@ -127,7 +141,8 @@ function new_row(id, amount, gain, interval, type){
       + '<td><input class=mini id="' + row_id + '-interval" value="' + interval + '">'
       + '<td id="' + row_id + '-total">'
       + '<td id="' + row_id + '-total-increase">'
-      + '<td id="' + row_id + '-gain-percent">';
+      + '<td id="' + row_id + '-gain-percent">'
+      + '<td id="' + row_id + '-year-gain-percent">';
 
     sources[row_id] = {
       'amount': amount,
