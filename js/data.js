@@ -41,68 +41,28 @@ function calculate(){
     }
 
     for(const source in sources){
-        document.getElementById(source + '-total').textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': source_totals[source]['gain'],
-        });
-        document.getElementById(source + '-total-increase').textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': source_totals[source]['gain-increase'],
-        });
-        document.getElementById(source + '-gain-percent').textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': source_totals[source]['gain'] / source_totals[source]['amount'] * 100,
-        });
-        document.getElementById(source + '-year-gain-percent').textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': source_totals[source]['gain'] / total_gain * 100,
-        });
+        document.getElementById(source + '-total').innerHTML = format_number(source_totals[source]['gain']);
+        document.getElementById(source + '-total-increase').innerHTML = format_number(source_totals[source]['gain-increase']);
+        document.getElementById(source + '-gain-percent').innerHTML = format_number(source_totals[source]['gain'] / source_totals[source]['amount'] * 100);
+        document.getElementById(source + '-year-gain-percent').innerHTML = format_number(source_totals[source]['gain'] / total_gain * 100);
     }
 
-    document.getElementById('total').textContent = core_number_format({
-      'decimals-max': 7,
-      'decimals-min': 2,
-      'number': total,
-    });
+    document.getElementById('total').innerHTML = format_number(total);
 
     for(const source in sources){
-        document.getElementById(source + '-percent').textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': (Number(document.getElementById(source + '-amount').value) / total) * 100,
-        });
+        document.getElementById(source + '-percent').innerHTML = format_number((Number(document.getElementById(source + '-amount').value) / total) * 100);
     }
 
     for(const interval in intervals){
         const increase = total_gain / intervals[interval];
         const increase_year = total_increase / intervals[interval];
 
-        document.getElementById('total-' + interval).textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': increase,
-        });
-        document.getElementById('total-' + interval + '-percent').textContent = total === 0
+        document.getElementById('total-' + interval).innerHTML = format_number(increase);
+        document.getElementById('total-' + interval + '-percent').innerHTML = total === 0
           ? ''
-          : core_number_format({
-              'decimals-max': 7,
-              'decimals-min': 2,
-              'number': (increase / total) * 100,
-            });
-        document.getElementById('total-' + interval + '-increase-' + interval).textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': increase_year / intervals[interval],
-        });
-        document.getElementById('total-' + interval + '-increase-yearly').textContent = core_number_format({
-          'decimals-max': 7,
-          'decimals-min': 2,
-          'number': increase_year,
-        });
+          : format_number((increase / total) * 100);
+        document.getElementById('total-' + interval + '-increase-' + interval).innerHTML = format_number(increase_year / intervals[interval]);
+        document.getElementById('total-' + interval + '-increase-yearly').innerHTML = format_number(increase_year);
     }
 
     calculate_goal_seconds();
@@ -120,11 +80,33 @@ function calculate_goal_seconds(){
 
     const gain_per_second = Number(document.getElementById('total-day').textContent) / 86400;
 
-    document.getElementById('goal-seconds-seconds').textContent = core_number_format({
-      'decimals-max': 7,
+    document.getElementById('goal-seconds-seconds').innerHTML = format_number(goal_seconds / gain_per_second);
+}
+
+function format_number(number){
+    if(!Number.isFinite(number)){
+        return '';
+    }
+
+    let result = core_number_format({
+      'decimals-max': core_storage_data['decimals'],
       'decimals-min': 0,
-      'number': goal_seconds / gain_per_second,
+      'number': number,
     });
+
+    const decimal = result.indexOf('.');
+    let decimal_length = decimal === -1
+      ? 0
+      : result.length - decimal;
+
+    if(decimal_length < core_storage_data['decimals'] + 1){
+        while(decimal_length < core_storage_data['decimals'] + 1){
+            result += '&nbsp;';
+                decimal_length++;
+        }
+    }
+
+    return result;
 }
 
 function new_row(id, amount, gain, interval, type){
