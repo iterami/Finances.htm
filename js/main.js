@@ -33,6 +33,7 @@ function repo_init(){
         'intervals': {
           'hour': 8760,
           'day': 365,
+          'week': 52,
           'month': 12,
           'quarter': 4,
           'half': 2,
