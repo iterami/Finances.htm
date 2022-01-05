@@ -12,7 +12,6 @@ function calculate(){
 
     const sources = globalThis.sources;
     for(const source in sources){
-        assets += 1;
         const amount = Number(document.getElementById(source + '-amount').value);
         const interval_gain = Number(document.getElementById(source + '-gain').value);
         const interval_type = document.getElementById(source + '-type').value;
@@ -30,6 +29,7 @@ function calculate(){
         }
 
         if(document.getElementById(source + '-apply').checked){
+            assets += 1;
             total += amount;
             total_gain += gain;
             total_increase += gain_increase;
