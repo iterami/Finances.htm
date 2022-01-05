@@ -4,6 +4,7 @@ function calculate(){
     core_storage_data['sources'] = JSON.stringify(globalThis.sources);
     core_storage_update();
 
+    let assets = 0;
     let total = 0;
     let total_gain = 0;
     let total_increase = 0;
@@ -11,6 +12,7 @@ function calculate(){
 
     const sources = globalThis.sources;
     for(const source in sources){
+        assets += 1;
         const amount = Number(document.getElementById(source + '-amount').value);
         const interval_gain = Number(document.getElementById(source + '-gain').value);
         const interval_type = document.getElementById(source + '-type').value;
@@ -47,6 +49,10 @@ function calculate(){
         document.getElementById(source + '-year-gain-percent').innerHTML = format_number(source_totals[source]['gain'] / total_gain * 100);
     }
 
+    document.getElementById('assets').innerHTML = format_number(
+      assets,
+      false
+    );
     document.getElementById('total').innerHTML = format_number(
       total,
       false
