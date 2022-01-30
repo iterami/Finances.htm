@@ -56,7 +56,7 @@ function repo_init(){
         intervalsbody += '<tr>'
           + '<td>' + interval
           + '<td>' + (interval === 'custom'
-            ? '<input class=mini id=total-custom-intervals value=0.5 type=number>'
+            ? '<input class=mini id=total-custom-intervals step=any type=number value=0.5>'
             : intervals[interval])
           + '<td id=total-' + interval + '>'
           + '<td id=total-' + interval + '-percent>'
