@@ -211,6 +211,7 @@ function update_ids(old_id, new_id){
       '-total',
       '-total-increase',
       '-type',
+      '-year-gain-percent',
     ];
     for(const i in elements){
         document.getElementById(old_id + elements[i]).id = new_id + elements[i];
