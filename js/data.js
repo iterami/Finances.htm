@@ -132,7 +132,7 @@ function new_row(id, amount, gain, interval, type){
       + '<td><input class=mini id="' + row_id + '" value="' + row_id + '">'
       + '<td><input id="' + row_id + '-amount" value="' + amount + '" step=any type=number>'
       + '<td id="' + row_id + '-percent">'
-      + '<td><input class=mini id="' + row_id + '-gain" value="' + gain + '" step=any type=number>'
+      + '<td><input id="' + row_id + '-gain" value="' + gain + '" step=any type=number>'
         + '<select id="' + row_id + '-type"><option value=%>%</option><option value=+>+</option></select>'
       + '<td><input class=mini id="' + row_id + '-interval" value="' + interval + '" step=any type=number>'
       + '<td id="' + row_id + '-total">'
