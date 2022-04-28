@@ -32,6 +32,7 @@ function repo_init(){
       'globals': {
         'intervals': {
           'hour': 8760,
+          'work': 2080,
           'day': 365,
           'week': 52,
           'month': 12,
