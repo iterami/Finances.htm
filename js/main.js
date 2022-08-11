@@ -25,8 +25,8 @@ function repo_init(){
               calculate();
           },
         },
-        'goal-seconds': {
-          'oninput': calculate_goal_seconds,
+        'goal-time': {
+          'oninput': calculate_goal_time,
         },
       },
       'globals': {
@@ -45,7 +45,7 @@ function repo_init(){
         'sources': {},
       },
       'storage': {
-        'goal-seconds': 1,
+        'goal-time': 1,
         'sources': '{"example":{"amount":5000,"gain":0.23,"interval":12,"type":"%"}}',
       },
       'storage-menu': '<textarea id=sources></textarea><br>',

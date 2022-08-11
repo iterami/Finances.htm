@@ -74,25 +74,26 @@ function calculate(){
         document.getElementById('total-' + interval + '-increase-yearly').innerHTML = format_number(increase_year);
     }
 
-    calculate_goal_seconds();
+    calculate_goal_time();
 }
 
-function calculate_goal_seconds(){
-    const goal_seconds_text = document.getElementById('goal-seconds').value;
-    let goal_seconds = Number(goal_seconds_text);
+function calculate_goal_time(){
+    const goal_time_text = document.getElementById('goal-time').value;
+    let goal_time = Number(goal_time_text);
 
-    if(goal_seconds_text.length === 0
-      || goal_seconds <= 0){
-        goal_seconds = 1;
-        document.getElementById('goal-seconds').value = goal_seconds;
+    if(goal_time_text.length === 0
+      || goal_time < 0){
+        goal_time = 0;
     }
 
     const gain_per_second = Number(document.getElementById('total-day').textContent) / 86400;
-
-    document.getElementById('goal-seconds-seconds').innerHTML = format_number(
-      goal_seconds / gain_per_second,
-      false
-    );
+    document.getElementById('goal-time-gain').innerHTML = time_format({
+      'date': timestamp_to_date({
+        'timestamp': goal_time / gain_per_second * 1000,
+      }),
+      'diff': true,
+      'milliseconds': true,
+    });
 }
 
 function format_number(number, pad){
