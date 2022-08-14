@@ -78,22 +78,18 @@ function calculate(){
 }
 
 function calculate_goal_time(){
-    const goal_time_text = document.getElementById('goal-time').value;
-    let goal_time = Number(goal_time_text);
-
-    if(goal_time_text.length === 0
-      || goal_time < 0){
-        goal_time = 0;
-    }
+    core_storage_save();
 
     const gain_per_second = Number(document.getElementById('total-day').textContent) / 86400;
-    document.getElementById('goal-time-gain').innerHTML = time_format({
-      'date': timestamp_to_date({
-        'timestamp': goal_time / gain_per_second * 1000,
-      }),
-      'diff': true,
-      'milliseconds': true,
-    });
+    document.getElementById('goal-time-gain').innerHTML = gain_per_second <= 0
+      ? ''
+      : time_format({
+          'date': timestamp_to_date({
+            'timestamp': core_storage_data['goal-time'] / gain_per_second * 1000,
+          }),
+          'diff': true,
+          'milliseconds': true,
+        });
 }
 
 function format_number(number, pad){
