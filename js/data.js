@@ -165,7 +165,7 @@ function new_asset(id, shares, price, gain, interval){
       + '<td id="asset-' + row_id + '-amount">'
       + '<td id="asset-' + row_id + '-percent">'
       + '<td>' + format_number(gain)
-      + '<td>' + interval
+      + '<td class=center>' + interval
       + '<td id="asset-' + row_id + '-total">'
       + '<td id="asset-' + row_id + '-gain-percent">'
       + '<td id="asset-' + row_id + '-year-gain-percent">';
