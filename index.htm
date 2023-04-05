@@ -40,18 +40,33 @@
 <table>
   <thead>
     <tr class=header>
-      <td><input id=add-row type=button value=+><input id=all-apply type=checkbox checked>
-      <td>Asset
+      <td><input id=savings-all type=checkbox checked>
+      <td>Savings<br>Accounts
       <td>Amount
       <td>Amount%
-      <td>Gain<br>/Interval
-      <td>Intervals<br>/Year
+      <td>Gain%<br>/Year
       <td>Gain<br>/Year
       <td>Gain+<br>/Year
+      <td>Gain%<br>/Yearly Gain
+  </thead>
+  <tbody class=right id=savings-body></tbody>
+</table>
+<table>
+  <thead>
+    <tr class=header>
+      <td><input id=assets-all type=checkbox checked>
+      <td>Assets
+      <td>Shares
+      <td>Price
+      <td>Amount
+      <td>Amount%
+      <td>Dividend<br>/Share
+      <td>Dividends<br>/Year
+      <td>Gain<br>/Year
       <td>Gain%<br>/Amount
       <td>Gain%<br>/Yearly Gain
   </thead>
-  <tbody class=right id=sources-body></tbody>
+  <tbody class=right id=assets-body></tbody>
 </table>
 
 <script src=../common/js/core.js></script>

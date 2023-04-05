@@ -3,23 +3,21 @@
 function repo_init(){
     core_repo_init({
       'events': {
-        'add-row': {
-          'onclick': function(){
-              new_row(
-                void 0,
-                0,
-                0,
-                1,
-                '%'
-              );
-              update_events();
+        'assets-all': {
+          'onchange': function(){
+              const assets = globalThis.sources['assets'];
+              for(const asset in assets){
+                  document.getElementById('asset-' + asset + '-apply').checked = this.checked;
+              }
+
+              calculate();
           },
         },
-        'all-apply': {
+        'savings-all': {
           'onchange': function(){
-              const sources = globalThis.sources;
-              for(const source in sources){
-                  document.getElementById(source + '-apply').checked = this.checked;
+              const savings = globalThis.sources['savings'];
+              for(const saving in savings){
+                  document.getElementById('savings-' + saving + '-apply').checked = this.checked;
               }
 
               calculate();
@@ -42,11 +40,14 @@ function repo_init(){
           'custom': 0.5,
         },
         'row_count': 0,
-        'sources': {},
+        'sources': {
+          'assets': {},
+          'savings': {},
+        },
       },
       'storage': {
         'goal-time': 1,
-        'sources': '{"example":{"amount":5000,"gain":0.23,"interval":12,"type":"%"}}',
+        'sources': '{"assets":{"example asset":{"shares":100,"price":25,"gain":1,"interval":12}},"savings":{"example savings":{"amount":5000,"gain":0.23,"interval":12}}}',
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
@@ -75,15 +76,25 @@ function repo_init(){
         calculate();
     };
 
-    const sources = JSON.parse(core_storage_data['sources']);
-    for(const source in sources){
-        new_row(
-          source,
-          sources[source]['amount'],
-          sources[source]['gain'],
-          sources[source]['interval'],
-          sources[source]['type']
+    const assets = JSON.parse(core_storage_data['sources'])['assets'];
+    for(const asset in assets){
+        new_asset(
+          asset,
+          assets[asset]['shares'],
+          assets[asset]['price'],
+          assets[asset]['gain'],
+          assets[asset]['interval']
         );
     }
-    update_events();
+    const savings = JSON.parse(core_storage_data['sources'])['savings'];
+    for(const saving in savings){
+        new_savings(
+          saving,
+          savings[saving]['amount'],
+          savings[saving]['gain'],
+          savings[saving]['interval']
+        );
+    }
+
+    calculate();
 }
