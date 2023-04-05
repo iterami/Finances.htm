@@ -137,6 +137,10 @@ function format_number(number, pad){
         let decimal_length = decimal === -1
           ? -1
           : result.length - decimal - 1;
+        if(decimal_length === 1){
+            result += '0';
+            decimal_length++;
+        }
 
         if(decimal_length < core_storage_data['decimals']){
             while(decimal_length < core_storage_data['decimals']){
