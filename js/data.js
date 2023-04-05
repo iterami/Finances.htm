@@ -157,10 +157,10 @@ function new_asset(id, shares, price, gain, interval){
       + '<td><input id="asset-' + row_id + '-apply" onclick="calculate()" type=checkbox checked>'
       + '<td>' + row_id
       + '<td>' + shares
-      + '<td>' + price
+      + '<td>' + format_number(price)
       + '<td id="asset-' + row_id + '-amount">'
       + '<td id="asset-' + row_id + '-percent">'
-      + '<td>' + gain
+      + '<td>' + format_number(gain)
       + '<td>' + interval
       + '<td id="asset-' + row_id + '-total">'
       + '<td id="asset-' + row_id + '-gain-percent">'
@@ -183,7 +183,7 @@ function new_savings(id, amount, gain, interval){
     document.getElementById('savings-body').innerHTML += '<tr>'
       + '<td><input id="savings-' + row_id + '-apply" onclick="calculate()" type=checkbox checked>'
       + '<td>' + row_id
-      + '<td>' + amount
+      + '<td>' + format_number(amount)
       + '<td id="savings-' + row_id + '-percent">'
       + '<td>' + gain
       + '<td id="savings-' + row_id + '-total">'
