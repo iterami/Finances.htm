@@ -16,7 +16,7 @@ function calculate(){
     const sources = globalThis.sources;
     for(const asset in sources['assets']){
         const amount = sources['assets'][asset]['shares'] * sources['assets'][asset]['price'];
-        const interval_gain = sources['assets'][asset]['gain']
+        const interval_gain = sources['assets'][asset]['shares'] * sources['assets'][asset]['gain'];
 
         let gain = 0;
         let gain_increase = 0;
@@ -44,7 +44,7 @@ function calculate(){
 
     for(const saving in sources['savings']){
         const amount = sources['savings'][saving]['amount'];
-        const interval_gain = sources['savings'][saving]['gain']
+        const interval_gain = sources['savings'][saving]['gain'];
 
         let gain = 0;
         let gain_increase = 0;
