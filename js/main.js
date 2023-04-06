@@ -76,9 +76,12 @@ function repo_init(){
         calculate();
     };
 
-    const assets = JSON.parse(core_storage_data['sources'])['assets'];
+    const json = JSON.parse(core_storage_data['sources']);
+
+    let rows = '';
+    const assets = json['assets'];
     for(const asset in assets){
-        new_asset(
+        rows += new_asset(
           asset,
           assets[asset]['shares'],
           assets[asset]['price'],
@@ -86,15 +89,19 @@ function repo_init(){
           assets[asset]['interval']
         );
     }
-    const savings = JSON.parse(core_storage_data['sources'])['savings'];
+    document.getElementById('assets-body').innerHTML = rows;
+
+    rows = '';
+    const savings = json['savings'];
     for(const saving in savings){
-        new_savings(
+        rows += new_savings(
           saving,
           savings[saving]['amount'],
           savings[saving]['gain'],
           savings[saving]['interval']
         );
     }
+    document.getElementById('savings-body').innerHTML = rows;
 
     calculate();
 }

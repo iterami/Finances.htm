@@ -154,51 +154,43 @@ function format_number(number, pad){
 }
 
 function new_asset(id, shares, price, gain, interval){
-    const row_id = id !== void 0
-      ? id
-      : row_count;
-    document.getElementById('assets-body').innerHTML += '<tr>'
-      + '<td><input id="asset-' + row_id + '-apply" onclick="calculate()" type=checkbox checked>'
-      + '<td>' + row_id
-      + '<td>' + shares
-      + '<td>' + format_number(price)
-      + '<td id="asset-' + row_id + '-amount">'
-      + '<td id="asset-' + row_id + '-percent">'
-      + '<td>' + format_number(gain)
-      + '<td class=center>' + interval
-      + '<td id="asset-' + row_id + '-total">'
-      + '<td id="asset-' + row_id + '-gain-percent">'
-      + '<td id="asset-' + row_id + '-year-gain-percent">';
-
-    sources['assets'][row_id] = {
+    sources['assets'][id] = {
       'shares': shares,
       'price': price,
       'gain': gain,
       'interval': interval,
     };
-
     row_count++;
+
+    return '<tr>'
+      + '<td><input id="asset-' + id + '-apply" onclick="calculate()" type=checkbox checked>'
+      + '<td>' + id
+      + '<td>' + shares
+      + '<td>' + format_number(price)
+      + '<td id="asset-' + id + '-amount">'
+      + '<td id="asset-' + id + '-percent">'
+      + '<td>' + format_number(gain)
+      + '<td class=center>' + interval
+      + '<td id="asset-' + id + '-total">'
+      + '<td id="asset-' + id + '-gain-percent">'
+      + '<td id="asset-' + id + '-year-gain-percent">';
 }
 
 function new_savings(id, amount, gain, interval){
-    const row_id = id !== void 0
-      ? id
-      : row_count;
-    document.getElementById('savings-body').innerHTML += '<tr>'
-      + '<td><input id="savings-' + row_id + '-apply" onclick="calculate()" type=checkbox checked>'
-      + '<td>' + row_id
-      + '<td>' + format_number(amount)
-      + '<td id="savings-' + row_id + '-percent">'
-      + '<td>' + gain
-      + '<td id="savings-' + row_id + '-total">'
-      + '<td id="savings-' + row_id + '-total-increase">'
-      + '<td id="savings-' + row_id + '-year-gain-percent">';
-
-    sources['savings'][row_id] = {
+    sources['savings'][id] = {
       'amount': amount,
       'gain': gain,
       'interval': interval,
     };
-
     row_count++;
+
+    return '<tr>'
+      + '<td><input id="savings-' + id + '-apply" onclick="calculate()" type=checkbox checked>'
+      + '<td>' + id
+      + '<td>' + format_number(amount)
+      + '<td id="savings-' + id + '-percent">'
+      + '<td>' + gain
+      + '<td id="savings-' + id + '-total">'
+      + '<td id="savings-' + id + '-total-increase">'
+      + '<td id="savings-' + id + '-year-gain-percent">';
 }
