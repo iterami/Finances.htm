@@ -160,7 +160,6 @@ function new_asset(id, shares, price, gain, interval){
       'gain': gain,
       'interval': interval,
     };
-    row_count++;
 
     return '<tr>'
       + '<td><input id="asset-' + id + '-apply" onclick="calculate()" type=checkbox checked>'
@@ -182,7 +181,6 @@ function new_savings(id, amount, gain, interval){
       'gain': gain,
       'interval': interval,
     };
-    row_count++;
 
     return '<tr>'
       + '<td><input id="savings-' + id + '-apply" onclick="calculate()" type=checkbox checked>'

@@ -39,7 +39,6 @@ function repo_init(){
           'year': 1,
           'custom': 0.5,
         },
-        'row_count': 0,
         'sources': {
           'assets': {},
           'savings': {},
