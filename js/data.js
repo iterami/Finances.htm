@@ -75,8 +75,14 @@ function calculate(){
         document.getElementById('asset-' + asset + '-year-gain-percent').innerHTML = format_number(source_totals['asset-' + asset]['gain'] / total_gain * 100);
     }
 
-    document.getElementById('assets').innerHTML = format_number(assets);
-    document.getElementById('total').innerHTML = format_number(total);
+    document.getElementById('assets').innerHTML = format_number(
+      assets,
+      2
+    );
+    document.getElementById('total').innerHTML = format_number(
+      total,
+      2
+    );
 
     for(const asset in sources['assets']){
         document.getElementById('asset-' + asset + '-percent').innerHTML = format_number(source_totals['asset-' + asset]['amount'] / total * 100);
