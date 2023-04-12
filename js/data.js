@@ -35,12 +35,6 @@ function calculate(){
           'gain-increase': gain_increase,
         };
     }
-    for(const asset in sources['assets']){
-        document.getElementById('asset-' + asset + '-amount').innerHTML = format_number(source_totals['asset-' + asset]['amount']);
-        document.getElementById('asset-' + asset + '-total').innerHTML = format_number(source_totals['asset-' + asset]['gain']);
-        document.getElementById('asset-' + asset + '-gain-percent').innerHTML = format_number(source_totals['asset-' + asset]['gain'] / source_totals['asset-' + asset]['amount'] * 100);
-        document.getElementById('asset-' + asset + '-year-gain-percent').innerHTML = format_number(source_totals['asset-' + asset]['gain'] / total_gain * 100);
-    }
 
     for(const saving in sources['savings']){
         const amount = sources['savings'][saving]['amount'];
@@ -65,20 +59,24 @@ function calculate(){
           'gain-increase': gain_increase,
         };
     }
+
     for(const saving in sources['savings']){
         document.getElementById('savings-' + saving + '-total').innerHTML = format_number(source_totals['savings-' + saving]['gain']);
         document.getElementById('savings-' + saving + '-total-increase').innerHTML = format_number(source_totals['savings-' + saving]['gain-increase']);
         document.getElementById('savings-' + saving + '-year-gain-percent').innerHTML = format_number(source_totals['savings-' + saving]['gain'] / total_gain * 100);
     }
+    for(const asset in sources['assets']){
+        document.getElementById('asset-' + asset + '-amount').innerHTML = format_number(
+          source_totals['asset-' + asset]['amount'],
+          2
+        );
+        document.getElementById('asset-' + asset + '-total').innerHTML = format_number(source_totals['asset-' + asset]['gain']);
+        document.getElementById('asset-' + asset + '-gain-percent').innerHTML = format_number(source_totals['asset-' + asset]['gain'] / source_totals['asset-' + asset]['amount'] * 100);
+        document.getElementById('asset-' + asset + '-year-gain-percent').innerHTML = format_number(source_totals['asset-' + asset]['gain'] / total_gain * 100);
+    }
 
-    document.getElementById('assets').innerHTML = format_number(
-      assets,
-      false
-    );
-    document.getElementById('total').innerHTML = format_number(
-      total,
-      false
-    );
+    document.getElementById('assets').innerHTML = format_number(assets);
+    document.getElementById('total').innerHTML = format_number(total);
 
     for(const asset in sources['assets']){
         document.getElementById('asset-' + asset + '-percent').innerHTML = format_number(source_totals['asset-' + asset]['amount'] / total * 100);
@@ -126,13 +124,16 @@ function format_number(number, pad){
         return '';
     }
 
+    pad = pad === void 0
+      ? core_storage_data['decimals']
+      : pad;
     let result = core_number_format({
-      'decimals-max': core_storage_data['decimals'],
+      'decimals-max': pad,
       'decimals-min': 0,
       'number': number,
     });
 
-    if(pad !== false){
+    if(pad > -1){
         const decimal = result.indexOf('.');
         let decimal_length = decimal === -1
           ? -1
@@ -142,11 +143,9 @@ function format_number(number, pad){
             decimal_length++;
         }
 
-        if(decimal_length < core_storage_data['decimals']){
-            while(decimal_length < core_storage_data['decimals']){
-                result += '&nbsp;';
-                    decimal_length++;
-            }
+        while(decimal_length < pad){
+            result += '&nbsp;';
+            decimal_length++;
         }
     }
 
@@ -165,7 +164,7 @@ function new_asset(id, shares, price, gain, interval){
       + '<td><input id="asset-' + id + '-apply" onclick="calculate()" type=checkbox checked>'
       + '<td>' + id
       + '<td>' + shares
-      + '<td>' + format_number(price)
+      + '<td>' + format_number(price, 2)
       + '<td id="asset-' + id + '-amount">'
       + '<td id="asset-' + id + '-percent">'
       + '<td>' + format_number(gain)
@@ -185,7 +184,7 @@ function new_savings(id, amount, gain, interval){
     return '<tr>'
       + '<td><input id="savings-' + id + '-apply" onclick="calculate()" type=checkbox checked>'
       + '<td>' + id
-      + '<td>' + format_number(amount)
+      + '<td>' + format_number(amount, 2)
       + '<td id="savings-' + id + '-percent">'
       + '<td>' + gain
       + '<td id="savings-' + id + '-total">'
