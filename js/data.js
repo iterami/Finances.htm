@@ -31,6 +31,7 @@ function calculate(){
 
         source_totals['asset-' + asset] = {
           'amount': amount,
+          'dividend': interval_gain,
           'gain': gain,
           'gain-increase': gain_increase,
         };
@@ -70,6 +71,7 @@ function calculate(){
           source_totals['asset-' + asset]['amount'],
           2
         );
+        document.getElementById('asset-' + asset + '-dividend').innerHTML = format_number(source_totals['asset-' + asset]['dividend']);
         document.getElementById('asset-' + asset + '-total').innerHTML = format_number(source_totals['asset-' + asset]['gain']);
         document.getElementById('asset-' + asset + '-gain-percent').innerHTML = format_number(source_totals['asset-' + asset]['gain'] / source_totals['asset-' + asset]['amount'] * 100);
         document.getElementById('asset-' + asset + '-year-gain-percent').innerHTML = format_number(source_totals['asset-' + asset]['gain'] / total_gain * 100);
@@ -175,6 +177,7 @@ function new_asset(id, shares, price, gain, interval){
       + '<td id="asset-' + id + '-percent">'
       + '<td>' + format_number(gain)
       + '<td class=center>' + interval
+      + '<td id="asset-' + id + '-dividend">'
       + '<td id="asset-' + id + '-total">'
       + '<td id="asset-' + id + '-gain-percent">'
       + '<td id="asset-' + id + '-year-gain-percent">';
