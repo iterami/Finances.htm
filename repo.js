@@ -5,6 +5,7 @@ function calculate(){
     core_storage_update();
 
     let assets = 0;
+    let shares = 0;
     let total = 0;
     let total_gain = 0;
     let total_increase = 0;
@@ -15,8 +16,9 @@ function calculate(){
 
     const sources = globalThis.sources;
     for(const asset in sources['assets']){
-        const amount = sources['assets'][asset]['shares'] * sources['assets'][asset]['price'];
-        const interval_gain = sources['assets'][asset]['shares'] * sources['assets'][asset]['gain'];
+        const asset_shares = sources['assets'][asset]['shares'];
+        const amount = asset_shares * sources['assets'][asset]['price'];
+        const interval_gain = asset_shares * sources['assets'][asset]['gain'];
 
         let gain = 0;
         let gain_increase = 0;
@@ -24,6 +26,7 @@ function calculate(){
 
         if(document.getElementById('asset-' + asset + '-apply').checked){
             assets += 1;
+            shares += asset_shares;
             total += amount;
             total_gain += gain;
             total_increase += gain_increase;
@@ -79,6 +82,10 @@ function calculate(){
 
     document.getElementById('assets').innerHTML = format_number(
       assets,
+      2
+    );
+    document.getElementById('shares').innerHTML = format_number(
+      shares,
       2
     );
     document.getElementById('total').innerHTML = format_number(
