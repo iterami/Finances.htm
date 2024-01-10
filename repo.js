@@ -126,9 +126,7 @@ function calculate_goal_time(){
     document.getElementById('goal-time-gain').innerHTML = gain_per_second <= 0
       ? ''
       : time_format({
-          'date': timestamp_to_date({
-            'timestamp': core_storage_data['goal-time'] / gain_per_second * 1000,
-          }),
+          'date': timestamp_to_date(core_storage_data['goal-time'] / gain_per_second * 1000),
           'diff': true,
           'milliseconds': true,
         });
