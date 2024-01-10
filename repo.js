@@ -116,11 +116,9 @@ function calculate(){
 }
 
 function calculate_goal_time(){
-    core_storage_save({
-      'keys': [
-        'goal-time',
-      ],
-    });
+    core_storage_save([
+      'goal-time',
+    ]);
 
     const gain_per_second = Number(document.getElementById('total-day').textContent) / 86400;
     document.getElementById('goal-time-gain').innerHTML = gain_per_second <= 0
