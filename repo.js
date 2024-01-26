@@ -112,15 +112,21 @@ function calculate(){
         document.getElementById('total-' + interval + '-increase-yearly').innerHTML = format_number(increase_year);
     }
 
-    calculate_goal_time();
+    calculate_stats();
 }
 
-function calculate_goal_time(){
+function calculate_stats(){
     core_storage_save([
       'goal-time',
+      'tax',
     ]);
 
-    const gain_per_second = Number(document.getElementById('total-day').textContent) / 86400;
+    const gain_per_second = Number(core_replace_multiple({
+      'patterns': {
+        ',': '',
+      },
+      'string': document.getElementById('total-hour').textContent,
+    })) / 3600;
     document.getElementById('goal-time-gain').innerHTML = gain_per_second <= 0
       ? ''
       : time_format({
@@ -128,6 +134,14 @@ function calculate_goal_time(){
           'diff': true,
           'milliseconds': true,
         });
+
+    const gain_per_year = Number(core_replace_multiple({
+      'patterns': {
+        ',': '',
+      },
+      'string': document.getElementById('total-year').textContent,
+    }));
+    document.getElementById('tax-result').innerHTML = gain_per_year * (document.getElementById('tax').value / 100);
 }
 
 function format_number(number, pad){
@@ -228,7 +242,10 @@ function repo_init(){
           },
         },
         'goal-time': {
-          'oninput': calculate_goal_time,
+          'oninput': calculate_stats,
+        },
+        'tax': {
+          'oninput': calculate_stats,
         },
       },
       'globals': {
@@ -251,6 +268,7 @@ function repo_init(){
       'storage': {
         'goal-time': 1,
         'sources': '{"assets":{"example asset":{"shares":100,"price":25,"gain":1,"interval":12}},"savings":{"example savings":{"amount":5000,"gain":0.23,"interval":12}}}',
+        'tax': 15,
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
