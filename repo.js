@@ -112,10 +112,10 @@ function calculate(){
         document.getElementById('total-' + interval + '-increase-yearly').innerHTML = format_number(increase_year);
     }
 
-    calculate_stats();
+    calculate_info();
 }
 
-function calculate_stats(){
+function calculate_info(){
     core_storage_save([
       'goal-time',
       'tax',
@@ -242,10 +242,10 @@ function repo_init(){
           },
         },
         'goal-time': {
-          'oninput': calculate_stats,
+          'oninput': calculate_info,
         },
         'tax': {
-          'oninput': calculate_stats,
+          'oninput': calculate_info,
         },
       },
       'globals': {
