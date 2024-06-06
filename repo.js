@@ -80,15 +80,15 @@ function calculate(){
         document.getElementById('asset-' + asset + '-year-gain-percent').innerHTML = format_number(source_totals['asset-' + asset]['gain'] / total_gain * 100);
     }
 
-    document.getElementById('assets').innerHTML = format_number(
+    core_elements['assets'].innerHTML = format_number(
       assets,
       2
     );
-    document.getElementById('shares').innerHTML = format_number(
+    core_elements['shares'].innerHTML = format_number(
       shares,
       2
     );
-    document.getElementById('total').innerHTML = format_number(
+    core_elements['total'].innerHTML = format_number(
       total,
       2
     );
@@ -104,12 +104,12 @@ function calculate(){
         const increase = total_gain / intervals[interval];
         const increase_year = total_increase / intervals[interval];
 
-        document.getElementById('total-' + interval).innerHTML = format_number(increase);
-        document.getElementById('total-' + interval + '-percent').innerHTML = total === 0
+        core_elements['total-' + interval].innerHTML = format_number(increase);
+        core_elements['total-' + interval + '-percent'].innerHTML = total === 0
           ? ''
           : format_number((increase / total) * 100);
-        document.getElementById('total-' + interval + '-increase-' + interval).innerHTML = format_number(increase_year / intervals[interval]);
-        document.getElementById('total-' + interval + '-increase-yearly').innerHTML = format_number(increase_year);
+        core_elements['total-' + interval + '-increase-' + interval].innerHTML = format_number(increase_year / intervals[interval]);
+        core_elements['total-' + interval + '-increase-yearly'].innerHTML = format_number(increase_year);
     }
 
     calculate_info();
@@ -125,9 +125,9 @@ function calculate_info(){
       'patterns': {
         ',': '',
       },
-      'string': document.getElementById('total-hour').textContent,
+      'string': core_elements['total-hour'].textContent,
     })) / 3600;
-    document.getElementById('goal-time-gain').innerHTML = gain_per_second <= 0
+    core_elements['goal-time-gain'].innerHTML = gain_per_second <= 0
       ? ''
       : time_format({
           'date': timestamp_to_date(core_storage_data['goal-time'] / gain_per_second * 1000),
@@ -139,9 +139,9 @@ function calculate_info(){
       'patterns': {
         ',': '',
       },
-      'string': document.getElementById('total-year').textContent,
+      'string': core_elements['total-year'].textContent,
     }));
-    document.getElementById('tax-result').innerHTML = gain_per_year * (document.getElementById('tax').value / 100);
+    core_elements['tax-result'].innerHTML = gain_per_year * (core_elements['tax'].value / 100);
 }
 
 function format_number(number, pad){
@@ -272,6 +272,14 @@ function repo_init(){
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
+      'ui-elements': [
+        'assets',
+        'goal-time-gain',
+        'shares',
+        'tax',
+        'tax-result',
+        'total',
+      ],
     });
 
     let intervalsbody = '';
@@ -296,6 +304,12 @@ function repo_init(){
         intervals['custom'] = customintervals;
         calculate();
     };
+    for(const interval in intervals){
+        core_elements['total-' + interval] = document.getElementById('total-' + interval);
+        core_elements['total-' + interval + '-percent'] = document.getElementById('total-' + interval + '-percent');
+        core_elements['total-' + interval + '-increase-' + interval] = document.getElementById('total-' + interval + '-increase-' + interval);
+        core_elements['total-' + interval + '-increase-yearly'] = document.getElementById('total-' + interval + '-increase-yearly');
+    }
 
     const json = JSON.parse(core_storage_data['sources']);
 
