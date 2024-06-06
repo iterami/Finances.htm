@@ -289,7 +289,7 @@ function repo_init(){
     document.getElementById('intervals-body').innerHTML = intervalsbody;
     document.getElementById('total-custom-intervals').oninput = function(){
         let customintervals = this.value;
-        if(Number.isNaN(customintervals)
+        if(globalThis.isNaN(customintervals)
           || customintervals < 0){
             customintervals = 0;
         }
