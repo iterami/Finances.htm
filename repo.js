@@ -5,6 +5,7 @@ function calculate(){
     core_storage_update();
 
     let assets = 0;
+    let cash = 0;
     let shares = 0;
     let total = 0;
     let total_gain = 0;
@@ -52,6 +53,7 @@ function calculate(){
 
         if(document.getElementById('savings-' + saving + '-apply').checked){
             assets += 1;
+            cash += amount;
             total += amount;
             total_gain += gain;
             total_increase += gain_increase;
@@ -82,6 +84,10 @@ function calculate(){
 
     core_elements['assets'].innerHTML = format_number(
       assets,
+      2
+    );
+    core_elements['cash'].innerHTML = format_number(
+      cash,
       2
     );
     core_elements['shares'].innerHTML = format_number(
@@ -274,6 +280,7 @@ function repo_init(){
       'title': 'Finances.htm',
       'ui-elements': [
         'assets',
+        'cash',
         'goal-time-gain',
         'shares',
         'tax',
