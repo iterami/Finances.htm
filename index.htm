@@ -4,26 +4,9 @@
 <title>Finances.htm</title>
 <link href=../common/css/core.css rel=stylesheet>
 
-<table class="inline right">
+<table>
   <tr class=header>
-    <td>Stats
-    <td>Total
-  <tr>
-    <td>Total
     <td id=total>
-  <tr>
-    <td>Assets
-    <td id=assets>
-  <tr>
-    <td>Shares
-    <td id=shares>
-  <tr>
-    <td>Cash
-    <td id=cash>
-</table>
-<table class=inline>
-  <tr class=header>
-    <td>Calculate
     <td>Amount
     <td>Result
   <tr>
@@ -50,9 +33,9 @@
   <thead>
     <tr class=header>
       <td><input id=savings-all type=checkbox checked>
-      <td>Savings<br>Accounts
-      <td>Amount
-      <td>Amount%
+      <td>Savings<div id=savings></div>
+      <td>Amount<div id=cash></div>
+      <td>Amount%<div id=cash-percent></div>
       <td>Gain%<br>/Year
       <td>Gain<br>/Year
       <td>Gain+<br>/Year
@@ -63,11 +46,11 @@
   <thead>
     <tr class=header>
       <td><input id=assets-all type=checkbox checked>
-      <td>Assets
-      <td>Shares
+      <td>Assets<div id=assets></div>
+      <td>Shares<div id=shares></div>
       <td>Price<br>/Share
-      <td>Amount
-      <td>Amount%
+      <td>Amount<div id=value></div>
+      <td>Amount%<div id=value-percent></div>
       <td>Dividend<br>/Share
       <td>Dividends<br>/Year
       <td>Gain<br>/Dividend

@@ -6,6 +6,7 @@ function calculate(){
 
     let assets = 0;
     let cash = 0;
+    let savings = 0;
     let shares = 0;
     let total = 0;
     let total_gain = 0;
@@ -52,8 +53,8 @@ function calculate(){
         gain_increase = (amount + gain) * interest_percent_year - gain;
 
         if(document.getElementById('savings-' + saving + '-apply').checked){
-            assets += 1;
             cash += amount;
+            savings += 1;
             total += amount;
             total_gain += gain;
             total_increase += gain_increase;
@@ -84,20 +85,30 @@ function calculate(){
 
     core_elements['assets'].innerHTML = format_number(
       assets,
-      2
+      0
     );
     core_elements['cash'].innerHTML = format_number(
       cash,
       2
     );
+    core_elements['cash-percent'].innerHTML = format_number((cash / total) * 100);
+    core_elements['savings'].innerHTML = format_number(
+      savings,
+      0
+    );
     core_elements['shares'].innerHTML = format_number(
       shares,
-      2
+      0
     );
     core_elements['total'].innerHTML = format_number(
       total,
       2
     );
+    core_elements['value'].innerHTML = format_number(
+      total - cash,
+      2
+    );
+    core_elements['value-percent'].innerHTML = format_number(((total - cash) / total) * 100);
 
     for(const asset in sources['assets']){
         document.getElementById('asset-' + asset + '-percent').innerHTML = format_number(source_totals['asset-' + asset]['amount'] / total * 100);
@@ -163,21 +174,22 @@ function format_number(number, pad){
       'decimals-min': 0,
       'number': number,
     });
+    if(pad === 0){
+        return result;
+    }
 
-    if(pad > -1){
-        const decimal = result.indexOf('.');
-        let decimal_length = decimal === -1
-          ? -1
-          : result.length - decimal - 1;
-        if(decimal_length === 1){
-            result += '0';
-            decimal_length++;
-        }
+    const decimal = result.indexOf('.');
+    let decimal_length = decimal === -1
+      ? -1
+      : result.length - decimal - 1;
+    if(decimal_length === 1){
+        result += '0';
+        decimal_length++;
+    }
 
-        while(decimal_length < pad){
-            result += '&nbsp;';
-            decimal_length++;
-        }
+    while(decimal_length < pad){
+        result += '&nbsp;';
+        decimal_length++;
     }
 
     return result;
@@ -281,11 +293,15 @@ function repo_init(){
       'ui-elements': [
         'assets',
         'cash',
+        'cash-percent',
         'goal-time-gain',
+        'savings',
         'shares',
         'tax',
         'tax-result',
         'total',
+        'value',
+        'value-percent',
       ],
     });
 
