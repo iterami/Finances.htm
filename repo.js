@@ -167,7 +167,7 @@ function format_number(number, pad){
     }
 
     pad = pad === void 0
-      ? core_storage_data['decimals']
+      ? 7
       : pad;
     let result = core_number_format({
       'decimals-max': pad,
