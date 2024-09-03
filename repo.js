@@ -206,7 +206,7 @@ function new_asset(id, shares, price, gain, interval){
     return '<tr>'
       + '<td><input id="asset-' + id + '-apply" onclick="calculate()" type=checkbox checked>'
       + '<td>' + id
-      + '<td>' + shares
+      + '<td>' + format_number(shares, 0)
       + '<td>' + format_number(price, 2)
       + '<td id="asset-' + id + '-amount">'
       + '<td id="asset-' + id + '-percent">'
