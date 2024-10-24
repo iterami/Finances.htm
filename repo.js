@@ -158,7 +158,7 @@ function calculate_info(){
       },
       'string': core_elements['total-year'].textContent,
     }));
-    core_elements['tax-result'].innerHTML = gain_per_year * (core_elements['tax'].value / 100);
+    core_elements['tax-result'].innerHTML = format_number(gain_per_year * (core_elements['tax'].value / 100));
 }
 
 function format_number(number, pad){
