@@ -138,7 +138,7 @@ function calculate_info(){
       'tax',
     ]);
 
-    const gain_per_second = Number(core_replace_multiple({
+    const gain_per_second = Number(core_replace({
       'patterns': {
         ',': '',
       },
@@ -152,7 +152,7 @@ function calculate_info(){
           'milliseconds': true,
         });
 
-    const gain_per_year = Number(core_replace_multiple({
+    const gain_per_year = Number(core_replace({
       'patterns': {
         ',': '',
       },
