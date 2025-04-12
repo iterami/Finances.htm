@@ -276,7 +276,7 @@ function repo_init(){
           'quarter': 4,
           'half': 2,
           'year': 1,
-          'custom': 0.5,
+          'custom': .5,
         },
         'sources': {
           'assets': {},
@@ -310,7 +310,7 @@ function repo_init(){
         intervalsbody += '<tr>'
           + '<td>' + interval
           + '<td>' + (interval === 'custom'
-            ? '<input class=mini id=total-custom-intervals step=any type=number value=0.5>'
+            ? '<input class=mini id=total-custom-intervals step=any type=number value=.5>'
             : intervals[interval])
           + '<td id=total-' + interval + '>'
           + '<td id=total-' + interval + '-percent>'
