@@ -170,8 +170,8 @@ function format_number(number, pad){
       ? 7
       : pad;
     let result = core_number_format({
-      'decimals-max': pad,
-      'decimals-min': 0,
+      'decimals_max': pad,
+      'decimals_min': 0,
       'number': number,
     });
     if(pad === 0){
