@@ -290,7 +290,7 @@ function repo_init(){
       },
       'storage-menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
-      'ui-elements': [
+      'ui_elements': [
         'assets',
         'cash',
         'cash_percent',
