@@ -288,7 +288,7 @@ function repo_init(){
         'sources': '{"assets":{"example asset":{"shares":100,"price":25,"gain":1,"interval":12}},"savings":{"example savings":{"amount":5000,"gain":0.23,"interval":12}}}',
         'tax': 15,
       },
-      'storage-menu': '<textarea id=sources></textarea><br>',
+      'storage_menu': '<textarea id=sources></textarea><br>',
       'title': 'Finances.htm',
       'ui_elements': [
         'assets',
