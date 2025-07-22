@@ -171,7 +171,6 @@ function format_number(number, pad){
       : pad;
     let result = core_number_format({
       'decimals_max': pad,
-      'decimals_min': 0,
       'number': number,
     });
     if(pad === 0){
