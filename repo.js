@@ -133,10 +133,13 @@ function calculate(){
 }
 
 function calculate_info(){
-    core_storage_save([
-      'goal_time',
-      'tax',
-    ]);
+    core_storage_save({
+      'keys': [
+        'goal_time',
+        'tax',
+      ],
+      'rebind': false,
+    });
 
     const gain_per_second = Number(core_replace({
       'patterns': {
